@@ -1,0 +1,141 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Menu, X, ShoppingCart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+
+interface NavbarProps {
+  cartItemCount?: number;
+  onCartClick?: () => void;
+}
+
+export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navItems = [
+    { href: "/", label: "Inicio" },
+    { href: "/catalogo", label: "Catálogo" },
+    { href: "/nosotros", label: "Nosotros" },
+    { href: "/contacto", label: "Contacto" },
+  ];
+
+  return (
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-background shadow-lg border-b border-border/50"
+          : "bg-gradient-to-b from-black/70 to-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          <Link href="/" className="flex items-center space-x-2 group">
+            <div className="relative overflow-hidden rounded-lg">
+              <Image
+                src="/images/logo-portones-pm.png"
+                alt="PORTONES PM"
+                width={200}
+                height={100}
+                className="h-20 w-auto transition-transform duration-300 group-hover:scale-105"
+                priority
+              />
+            </div>
+          </Link>
+
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`relative font-semibold text-lg group shadow-sm transition-all duration-300 ${
+                  isScrolled
+                    ? "text-foreground hover:text-primary"
+                    : "text-white hover:text-primary"
+                }`}
+                style={{
+                  textShadow: isScrolled
+                    ? "none"
+                    : "0px 1px 3px rgba(0,0,0,0.7)",
+                }}
+              >
+                {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <ThemeToggle />
+
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={onCartClick}
+              className="relative h-9 w-9 border-border/50 hover:bg-accent hover:text-accent-foreground"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                  {cartItemCount}
+                </span>
+              )}
+              <span className="sr-only">Carrito de compras</span>
+            </Button>
+
+            <Button
+              variant="outline"
+              size="icon"
+              className="md:hidden h-9 w-9 border-border/50 hover:bg-accent hover:text-accent-foreground"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? (
+                <X className="h-4 w-4" />
+              ) : (
+                <Menu className="h-4 w-4" />
+              )}
+              <span className="sr-only">Menú</span>
+            </Button>
+          </div>
+        </div>
+
+        {isMenuOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 glass rounded-lg m-2 border border-border/50">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`block px-4 py-3 font-semibold rounded-lg transition-all duration-300 ${
+                    isScrolled
+                      ? "text-foreground hover:text-primary hover:bg-accent/10"
+                      : "text-white hover:text-primary hover:bg-accent/10"
+                  }`}
+                  style={{
+                    textShadow: isScrolled
+                      ? "none"
+                      : "0px 1px 2px rgba(0,0,0,0.5)",
+                  }}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+}
