@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { Navbar } from "@/components/navbar";
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { ProductCard } from "@/components/product-card";
 import { HeroSection } from "@/components/hero";
-import { Catalog } from "@/components/catalog";
 import { AboutUs } from "@/components/about-us";
 import { Location } from "@/components/location";
 import { ContactForm } from "@/components/contact-form";
@@ -183,18 +184,19 @@ function CTASection() {
 export default function HomePage() {
   const { itemCount, addItem } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [modalProduct, setModalProduct] = useState<Product | null>(null);
+  const [modalQuantity, setModalQuantity] = useState(1);
 
-  const handleCartClick = () => {
+  const handleCartClick = () => setIsCartOpen(true);
+  const handleAddToCart = (product: Product, quantity = 1, variations?: Record<string, string>) => {
+    addItem(product, quantity, variations);
     setIsCartOpen(true);
   };
-
-  const handleAddToCart = (
-    product: Product,
-    quantity = 1,
-    variations?: Record<string, string>
-  ) => {
-    addItem(product, quantity, variations);
+  const handleOpenModal = (product: Product) => {
+    setModalProduct(product);
+    setModalQuantity(1);
   };
+  const handleCloseModal = () => setModalProduct(null);
 
   return (
     <main className="min-h-screen">
@@ -204,7 +206,27 @@ export default function HomePage() {
 
       <FeaturesSection />
 
-      <Catalog onAddToCart={handleAddToCart} />
+      {/* Sección de productos destacados en vez de catálogo completo */}
+      <section className="py-16 bg-muted/10">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Productos Destacados</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Conoce nuestros productos más populares y recomendados.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {(require("@/lib/products").mockProducts as Product[])
+              .filter((p: Product) => p.featured)
+              .slice(0, 4)
+              .map((product: Product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={() => handleAddToCart(product)}
+                />
+              ))}
+          </div>
+        </div>
+      </section>
 
       <SocialProofSection />
 

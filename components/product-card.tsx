@@ -9,7 +9,7 @@ import { type Product, formatPrice } from "@/lib/products"
 
 interface ProductCardProps {
   product: Product
-  onAddToCart: (product: Product) => void
+  onAddToCart: (product: Product) => void // ahora solo abre el modal
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {

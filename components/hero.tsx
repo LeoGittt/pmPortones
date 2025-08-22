@@ -3,6 +3,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
 import { ArrowRight } from "lucide-react";
 
 export function HeroSection() {
@@ -11,13 +18,33 @@ export function HeroSection() {
       id="inicio"
       className="relative min-h-screen overflow-hidden flex items-center"
     >
-      {/* Minimal Background */}
+      {/* Carrusel de fondo */}
       <div className="absolute inset-0 -z-20">
-        <img
-          src="https://images.pexels.com/photos/7944346/pexels-photo-7944346.jpeg"
-          alt="Portón automático en funcionamiento"
-          className="object-cover w-full h-full"
-        />
+        <div className="w-full h-full">
+          <div className="relative w-full h-full">
+            <Carousel opts={{ loop: true }}>
+              <CarouselContent>
+                <CarouselItem>
+                  <img src="/automatic-dual-swing-gate-motor.png" alt="Motor dual" className="object-cover w-full h-screen" />
+                </CarouselItem>
+                <CarouselItem>
+                  <img src="/sleek-automated-gate.png" alt="Portón moderno" className="object-cover w-full h-screen" />
+                </CarouselItem>
+                <CarouselItem>
+                  <img src="/residential-automation-system.png" alt="Automatización residencial" className="object-cover w-full h-screen" />
+                </CarouselItem>
+              </CarouselContent>
+              <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">
+                <div className="pointer-events-auto">
+                  <CarouselPrevious className="!static !relative !left-0 !top-0" />
+                </div>
+                <div className="pointer-events-auto">
+                  <CarouselNext className="!static !relative !right-0 !top-0" />
+                </div>
+              </div>
+            </Carousel>
+          </div>
+        </div>
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
 

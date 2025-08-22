@@ -35,7 +35,7 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background shadow-lg border-b border-border/50"
+          ? "bg-background border-b border-border/50"
           : "bg-gradient-to-b from-black/70 to-transparent"
       }`}
     >
@@ -59,15 +59,13 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative font-semibold text-lg group shadow-sm transition-all duration-300 ${
+                className={`relative font-semibold text-lg group transition-all duration-300 ${
                   isScrolled
                     ? "text-foreground hover:text-primary"
                     : "text-white hover:text-primary"
                 }`}
                 style={{
-                  textShadow: isScrolled
-                    ? "none"
-                    : "0px 1px 3px rgba(0,0,0,0.7)",
+                  textShadow: "none",
                 }}
               >
                 {item.label}
@@ -122,11 +120,7 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
                       ? "text-foreground hover:text-primary hover:bg-accent/10"
                       : "text-white hover:text-primary hover:bg-accent/10"
                   }`}
-                  style={{
-                    textShadow: isScrolled
-                      ? "none"
-                      : "0px 1px 2px rgba(0,0,0,0.5)",
-                  }}
+                  style={{ textShadow: "none" }}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
