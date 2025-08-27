@@ -141,7 +141,7 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
         {/* Quick Filters */}
         <div className="space-y-3">
           <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            <Sparkles className="w-3 h-3 text-primary" />
+            <Sparkles className="w-3 h-3 text-accent" />
             Filtros Rápidos
           </label>
           <div className="grid grid-cols-2 gap-3">
@@ -149,7 +149,7 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
               variant="outline"
               size="sm"
               onClick={() => updateFilter("sortBy", "price-asc")}
-              className="h-9 text-xs bg-background/50 border-border/50 hover:bg-primary/10 hover:border-primary/40 transition-all"
+              className="h-9 text-xs bg-background/50 border-border/50 hover:bg-accent/10 hover:border-accent/40 transition-all"
             >
               Más Baratos
             </Button>
@@ -157,7 +157,7 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
               variant="outline"
               size="sm"
               onClick={() => updateFilter("sortBy", "price-desc")}
-              className="h-9 text-xs bg-background/50 border-border/50 hover:bg-primary/10 hover:border-primary/40 transition-all"
+              className="h-9 text-xs bg-background/50 border-border/50 hover:bg-accent/10 hover:border-accent/40 transition-all"
             >
               Premium
             </Button>

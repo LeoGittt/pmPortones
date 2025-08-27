@@ -41,12 +41,20 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
           </div>
 
           {/* Quick actions */}
-          <div className="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Link href={`/producto/${product.id}`}>
-              <Button size="sm" variant="secondary" className="h-8 w-8 p-0 shadow-md">
+              <Button size="sm" className="h-8 w-8 p-0 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg">
                 <Eye className="h-3 w-3" />
               </Button>
             </Link>
+            <Button 
+              size="sm" 
+              onClick={() => onAddToCart(product)}
+              disabled={!product.inStock}
+              className="h-8 w-8 p-0 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg disabled:bg-muted disabled:text-muted-foreground"
+            >
+              <ShoppingCart className="h-3 w-3" />
+            </Button>
           </div>
         </div>
 
@@ -112,18 +120,24 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
           )}
         </div>
         
-        {/* Botón de vista rápida - aparece en hover */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        {/* Quick actions - aparece en hover */}
+        <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <Button
-            variant="secondary"
             size="sm"
             asChild
-            className="bg-background/95 backdrop-blur-sm border border-foreground/20 shadow-xl text-foreground hover:bg-background"
+            className="h-10 w-10 p-0 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg border border-accent/20"
           >
             <Link href={`/producto/${product.id}`}>
-              <Eye className="w-4 h-4 mr-2" />
-              Ver detalles
+              <Eye className="h-4 w-4" />
             </Link>
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => onAddToCart(product)}
+            disabled={!product.inStock}
+            className="h-10 w-10 p-0 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg border border-accent/20 disabled:bg-muted disabled:text-muted-foreground disabled:border-muted"
+          >
+            <ShoppingCart className="h-4 w-4" />
           </Button>
         </div>
       </div>
@@ -164,8 +178,8 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
           </div>
         </div>
         
-        {/* Botones - Altura fija al final */}
-        <div className="space-y-2 flex-shrink-0">
+        {/* Botón - Altura fija al final */}
+        <div className="flex-shrink-0">
           <Button 
             onClick={() => onAddToCart(product)} 
             disabled={!product.inStock} 
@@ -173,17 +187,6 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
           >
             <ShoppingCart className="w-4 h-4 mr-2" />
             {product.inStock ? 'Agregar al carrito' : 'No disponible'}
-          </Button>
-          
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            asChild 
-            className="w-full h-8 text-muted-foreground hover:text-foreground hover:bg-muted/50"
-          >
-            <Link href={`/producto/${product.id}`}>
-              Ver más información
-            </Link>
           </Button>
         </div>
       </div>

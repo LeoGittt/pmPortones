@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CartSidebar } from "@/components/cart-sidebar";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
+import { ProductCard } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -136,7 +137,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                       onClick={() => setSelectedImageIndex(index)}
                       className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
                         selectedImageIndex === index
-                          ? "border-primary"
+                          ? "border-accent"
                           : "border-border hover:border-border/80"
                       }`}
                     >
@@ -160,7 +161,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                 <div className="flex items-center gap-3 mb-3">
                   <Badge
                     variant="outline"
-                    className="text-primary border-primary/20"
+                    className="text-accent border-accent/20"
                   >
                     {product.category}
                   </Badge>
@@ -194,7 +195,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                   <div className="text-right">
                     <div
                       className={`text-sm font-medium ${
-                        product.inStock ? "text-green-600" : "text-red-600"
+                        product.inStock ? "text-green-600" : "text-accent"
                       }`}
                     >
                       {product.inStock ? "✓ Disponible" : "✗ Sin stock"}
@@ -355,6 +356,41 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Productos Destacados */}
+      <div className="py-16 bg-background">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Productos Destacados
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Descubre nuestros productos más populares y encuentra la solución perfecta para tu hogar
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mockProducts
+              .filter(p => p.featured && p.id !== product.id)
+              .slice(0, 3)
+              .map((featuredProduct) => (
+                <ProductCard
+                  key={featuredProduct.id}
+                  product={featuredProduct}
+                  onAddToCart={addItem}
+                />
+              ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <Link href="/catalogo">
+              <Button variant="outline" size="lg">
+                Ver todos los productos
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
