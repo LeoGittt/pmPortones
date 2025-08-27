@@ -158,6 +158,57 @@ export const mockProducts: Product[] = [
     inStock: true,
     featured: false,
   },
+  {
+    id: "9",
+    name: "Central de Control Universal",
+    price: 35000,
+    category: "Repuestos",
+    description: "Central de control universal compatible con la mayoría de motores del mercado.",
+    images: ["/central-control-portones.png"],
+    specifications: {
+      Compatibilidad: "Universal",
+      Memoria: "100 controles",
+      Funciones: "Peatonal, total, automático",
+      Protección: "IP65",
+    },
+    inStock: true,
+    featured: false,
+  },
+  {
+    id: "10",
+    name: "Sistema Completo Residencial",
+    price: 180000,
+    category: "Sistemas Completos",
+    description: "Kit completo para automatización residencial incluye motor, controles, fotocélulas e instalación.",
+    images: ["/residential-automation-system.png"],
+    specifications: {
+      Incluye: "Motor + 2 controles + fotocélulas",
+      Instalación: "Incluida",
+      Garantía: "3 años",
+      Servicio: "24hs",
+    },
+    inStock: true,
+    featured: true,
+  },
+  {
+    id: "11",
+    name: "Lámpara de Señalización",
+    price: 15000,
+    category: "Accesorios",
+    description: "Lámpara LED de señalización con intermitencia durante el movimiento del portón.",
+    images: ["/led-gate-signal-lamp.png"],
+    specifications: {
+      Tipo: "LED",
+      Potencia: "25W",
+      Voltaje: "12V/24V",
+      Color: "Naranja",
+    },
+    variations: {
+      color: ["Naranja", "Rojo", "Azul"],
+    },
+    inStock: true,
+    featured: false,
+  },
 ]
 
 export function getProductById(id: string): Product | undefined {
