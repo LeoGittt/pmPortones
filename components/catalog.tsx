@@ -11,7 +11,7 @@ interface CatalogProps {
   onAddToCart: (product: Product, quantity?: number, variations?: Record<string, string>) => void
 }
 
-const PRODUCTS_PER_PAGE = 20
+const PRODUCTS_PER_PAGE = 6
 
 export function Catalog({ onAddToCart }: CatalogProps) {
   const [currentPage, setCurrentPage] = useState(1)
@@ -119,7 +119,7 @@ export function Catalog({ onAddToCart }: CatalogProps) {
                   <div className="flex items-center gap-2 px-3 py-1.5 bg-accent/10 rounded-lg border border-accent/20">
                     <div className="w-2 h-2 bg-accent rounded-full" />
                     <span className="text-sm font-medium text-accent">
-                      Página {currentPage} de {totalPages}
+                      Página {currentPage} de {totalPages} • {PRODUCTS_PER_PAGE} por página
                     </span>
                   </div>
                 )}
@@ -200,30 +200,31 @@ export function Catalog({ onAddToCart }: CatalogProps) {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex flex-col items-center gap-4 mt-8 p-4 bg-card border border-border rounded-lg">
+              <div className="flex flex-col items-center gap-6 mt-12 p-6 bg-card border border-border rounded-lg">
+                {/* Page Numbers */}
                 <div className="flex flex-wrap justify-center items-center gap-2">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
                     disabled={currentPage === 1}
-                    className="h-9 px-3"
+                    className="h-10 px-4"
                   >
                     <ChevronLeft className="w-4 h-4 mr-1" />
                     Anterior
                   </Button>
 
                   <div className="flex gap-1">
-                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
                       let pageNum
-                      if (totalPages <= 5) {
+                      if (totalPages <= 7) {
                         pageNum = i + 1
-                      } else if (currentPage <= 3) {
+                      } else if (currentPage <= 4) {
                         pageNum = i + 1
-                      } else if (currentPage >= totalPages - 2) {
-                        pageNum = totalPages - 4 + i
+                      } else if (currentPage >= totalPages - 3) {
+                        pageNum = totalPages - 6 + i
                       } else {
-                        pageNum = currentPage - 2 + i
+                        pageNum = currentPage - 3 + i
                       }
 
                       return (
@@ -232,7 +233,7 @@ export function Catalog({ onAddToCart }: CatalogProps) {
                           variant={currentPage === pageNum ? "default" : "outline"}
                           size="sm"
                           onClick={() => setCurrentPage(pageNum)}
-                          className={`w-9 h-9 ${
+                          className={`w-10 h-10 ${
                             currentPage === pageNum 
                               ? 'bg-accent text-accent-foreground' 
                               : ''
@@ -249,18 +250,42 @@ export function Catalog({ onAddToCart }: CatalogProps) {
                     size="sm"
                     onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
                     disabled={currentPage === totalPages}
-                    className="h-9 px-3"
+                    className="h-10 px-4"
                   >
                     Siguiente
                     <ChevronRight className="w-4 h-4 ml-1" />
                   </Button>
                 </div>
                 
-                <p className="text-sm text-muted-foreground text-center">
-                  Mostrando productos <span className="font-medium text-foreground">{startIndex + 1}</span> al{" "}
-                  <span className="font-medium text-foreground">{Math.min(startIndex + PRODUCTS_PER_PAGE, filteredAndSortedProducts.length)}</span>{" "}
-                  de <span className="font-medium text-foreground">{filteredAndSortedProducts.length}</span> resultados
-                </p>
+                {/* Pagination Info */}
+                <div className="text-center space-y-2">
+                  <p className="text-sm text-muted-foreground">
+                    Mostrando productos <span className="font-medium text-foreground">{startIndex + 1}</span> al{" "}
+                    <span className="font-medium text-foreground">{Math.min(startIndex + PRODUCTS_PER_PAGE, filteredAndSortedProducts.length)}</span>{" "}
+                    de <span className="font-medium text-foreground">{filteredAndSortedProducts.length}</span> resultados
+                  </p>
+                  
+                  {/* Quick Jump */}
+                  {totalPages > 5 && (
+                    <div className="flex items-center justify-center gap-2 text-sm">
+                      <span className="text-muted-foreground">Ir a página:</span>
+                      <div className="flex gap-1">
+                        {[1, Math.ceil(totalPages/2), totalPages].map((page, index) => (
+                          <Button
+                            key={index}
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setCurrentPage(page)}
+                            disabled={currentPage === page}
+                            className="h-7 px-2 text-xs"
+                          >
+                            {page === 1 ? 'Primera' : page === totalPages ? 'Última' : `${page}`}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>

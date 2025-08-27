@@ -37,10 +37,10 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
   return (
     <div className="bg-card/80 backdrop-blur-sm rounded-xl border border-border/50 shadow-lg overflow-hidden">
       {/* Filter Header - Compacto y simétrico */}
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-primary/8 to-accent/8 border-b border-border/30">
+      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-accent/8 to-accent/12 border-b border-border/30">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary/10 rounded-lg">
-            <SlidersHorizontal className="w-4 h-4 text-primary" />
+          <div className="p-2 bg-accent/10 rounded-lg">
+            <SlidersHorizontal className="w-4 h-4 text-accent" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Filtros</h3>
@@ -50,7 +50,7 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
         
         <div className="flex items-center gap-2">
           {activeFiltersCount > 0 && (
-            <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 text-xs px-2 py-0.5">
+            <Badge variant="secondary" className="bg-accent/10 text-accent border-accent/20 text-xs px-2 py-0.5">
               {activeFiltersCount}
             </Badge>
           )}
@@ -71,7 +71,7 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
         {/* Search Section */}
         <div className="space-y-3">
           <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            <Search className="w-3 h-3 text-primary" />
+            <Search className="w-3 h-3 text-accent" />
             Búsqueda
           </label>
           <div className="relative">
@@ -80,7 +80,7 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
               placeholder="Buscar productos..."
               value={filters.search}
               onChange={(e) => updateFilter("search", e.target.value)}
-              className="pl-10 h-10 text-sm bg-background/50 border-border/50 focus:border-primary/60 focus:bg-background transition-all"
+              className="pl-10 h-10 text-sm bg-background/50 border-border/50 focus:border-accent/60 focus:bg-background transition-all"
             />
             {filters.search && (
               <Button
@@ -98,11 +98,11 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
         {/* Category Section */}
         <div className="space-y-3">
           <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            <Tag className="w-3 h-3 text-primary" />
+            <Tag className="w-3 h-3 text-accent" />
             Categoría
           </label>
           <Select value={filters.category} onValueChange={(value) => updateFilter("category", value === "all" ? "" : value)}>
-            <SelectTrigger className="h-10 text-sm bg-background/50 border-border/50 hover:border-primary/60 focus:border-primary/60 transition-all">
+            <SelectTrigger className="h-10 text-sm bg-background/50 border-border/50 hover:border-accent/60 focus:border-accent/60 transition-all">
               <SelectValue placeholder="Todas las categorías" />
             </SelectTrigger>
             <SelectContent className="bg-background/95 backdrop-blur-sm border-border/50">
@@ -121,11 +121,11 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
         {/* Sort Section */}
         <div className="space-y-3">
           <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            <ArrowUpDown className="w-3 h-3 text-primary" />
+            <ArrowUpDown className="w-3 h-3 text-accent" />
             Ordenar por
           </label>
           <Select value={filters.sortBy} onValueChange={(value) => updateFilter("sortBy", value)}>
-            <SelectTrigger className="h-10 text-sm bg-background/50 border-border/50 hover:border-primary/60 focus:border-primary/60 transition-all">
+            <SelectTrigger className="h-10 text-sm bg-background/50 border-border/50 hover:border-accent/60 focus:border-accent/60 transition-all">
               <SelectValue placeholder="Ordenar por" />
             </SelectTrigger>
             <SelectContent className="bg-background/95 backdrop-blur-sm border-border/50">
@@ -171,7 +171,7 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
               variant="outline" 
               size="sm" 
               onClick={onClearFilters}
-              className="w-full h-9 text-xs bg-background/50 border-border/50 hover:bg-destructive/10 hover:border-destructive/40 hover:text-destructive transition-all"
+              className="w-full h-9 text-xs bg-background/50 border-border/50 hover:bg-orange-500/10 hover:border-orange-500/40 hover:text-orange-600 transition-all"
             >
               <X className="w-3 h-3 mr-2" />
               Limpiar todos los filtros
