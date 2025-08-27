@@ -35,22 +35,21 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
   ].filter(Boolean).length
 
   return (
-    <div className="bg-card/80 backdrop-blur-sm rounded-xl border border-border/50 shadow-lg overflow-hidden">
+    <div className="space-y-4">
       {/* Filter Header - Compacto y simétrico */}
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-primary/8 to-accent/8 border-b border-border/30">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary/10 rounded-lg">
+      <div className="flex items-center justify-between p-3 bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg border border-primary/10">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 bg-primary/10 rounded-md">
             <SlidersHorizontal className="w-4 h-4 text-primary" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Filtros</h3>
-            <p className="text-xs text-muted-foreground">Refina tu búsqueda</p>
           </div>
         </div>
         
         <div className="flex items-center gap-2">
           {activeFiltersCount > 0 && (
-            <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 text-xs px-2 py-0.5">
+            <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 text-xs h-5 px-2">
               {activeFiltersCount}
             </Badge>
           )}
@@ -58,7 +57,7 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
             variant="ghost" 
             size="sm" 
             onClick={() => setIsExpanded(!isExpanded)}
-            className="lg:hidden h-8 w-8 p-0"
+            className="lg:hidden h-7 w-7 p-0"
           >
             {isExpanded ? "−" : "+"}
           </Button>
@@ -66,28 +65,28 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
       </div>
 
       {/* Filter Content - Espaciado uniforme */}
-      <div className={`p-4 space-y-5 ${isExpanded ? "block" : "hidden lg:block"}`}>
+      <div className={`space-y-4 ${isExpanded ? "block" : "hidden lg:block"}`}>
         
         {/* Search Section */}
-        <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
             <Search className="w-3 h-3 text-primary" />
             Búsqueda
           </label>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-muted-foreground w-3.5 h-3.5" />
             <Input
               placeholder="Buscar productos..."
               value={filters.search}
               onChange={(e) => updateFilter("search", e.target.value)}
-              className="pl-10 h-10 text-sm bg-background/50 border-border/50 focus:border-primary/60 focus:bg-background transition-all"
+              className="pl-8 h-9 text-sm bg-background border-border/60 focus:border-primary/50 transition-colors"
             />
             {filters.search && (
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => updateFilter("search", "")}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-muted/80"
+                className="absolute right-1 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-muted/80"
               >
                 <X className="w-3 h-3" />
               </Button>
@@ -96,18 +95,18 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
         </div>
 
         {/* Category Section */}
-        <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
             <Tag className="w-3 h-3 text-primary" />
             Categoría
           </label>
           <Select value={filters.category} onValueChange={(value) => updateFilter("category", value === "all" ? "" : value)}>
-            <SelectTrigger className="h-10 text-sm bg-background/50 border-border/50 hover:border-primary/60 focus:border-primary/60 transition-all">
+            <SelectTrigger className="h-9 text-sm bg-background border-border/60 hover:border-primary/50 focus:border-primary/50 transition-colors">
               <SelectValue placeholder="Todas las categorías" />
             </SelectTrigger>
-            <SelectContent className="bg-background/95 backdrop-blur-sm border-border/50">
-              <SelectItem value="all" className="text-sm font-medium">
-                Todas las categorías
+            <SelectContent className="bg-background border-border/60">
+              <SelectItem value="all" className="text-sm">
+                <span>Todas las categorías</span>
               </SelectItem>
               {categories.map((category) => (
                 <SelectItem key={category} value={category} className="text-sm capitalize">
@@ -119,16 +118,16 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
         </div>
 
         {/* Sort Section */}
-        <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
             <ArrowUpDown className="w-3 h-3 text-primary" />
             Ordenar por
           </label>
           <Select value={filters.sortBy} onValueChange={(value) => updateFilter("sortBy", value)}>
-            <SelectTrigger className="h-10 text-sm bg-background/50 border-border/50 hover:border-primary/60 focus:border-primary/60 transition-all">
+            <SelectTrigger className="h-9 text-sm bg-background border-border/60 hover:border-primary/50 focus:border-primary/50 transition-colors">
               <SelectValue placeholder="Ordenar por" />
             </SelectTrigger>
-            <SelectContent className="bg-background/95 backdrop-blur-sm border-border/50">
+            <SelectContent className="bg-background border-border/60">
               <SelectItem value="name-asc" className="text-sm">Nombre A-Z</SelectItem>
               <SelectItem value="name-desc" className="text-sm">Nombre Z-A</SelectItem>
               <SelectItem value="price-asc" className="text-sm">Precio: Menor a Mayor</SelectItem>
@@ -139,17 +138,17 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
         </div>
 
         {/* Quick Filters */}
-        <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
             <Sparkles className="w-3 h-3 text-primary" />
             Filtros Rápidos
           </label>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2">
             <Button
               variant="outline"
               size="sm"
               onClick={() => updateFilter("sortBy", "price-asc")}
-              className="h-9 text-xs bg-background/50 border-border/50 hover:bg-primary/10 hover:border-primary/40 transition-all"
+              className="h-8 text-xs bg-background border-border/60 hover:bg-primary/5 hover:border-primary/30 transition-colors"
             >
               Más Baratos
             </Button>
@@ -157,7 +156,7 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
               variant="outline"
               size="sm"
               onClick={() => updateFilter("sortBy", "price-desc")}
-              className="h-9 text-xs bg-background/50 border-border/50 hover:bg-primary/10 hover:border-primary/40 transition-all"
+              className="h-8 text-xs bg-background border-border/60 hover:bg-primary/5 hover:border-primary/30 transition-colors"
             >
               Premium
             </Button>
@@ -166,15 +165,15 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
 
         {/* Clear Filters - Solo si hay filtros activos */}
         {hasActiveFilters && (
-          <div className="pt-3 border-t border-border/30">
+          <div className="pt-2 border-t border-border/30">
             <Button 
               variant="outline" 
               size="sm" 
               onClick={onClearFilters}
-              className="w-full h-9 text-xs bg-background/50 border-border/50 hover:bg-destructive/10 hover:border-destructive/40 hover:text-destructive transition-all"
+              className="w-full h-8 text-xs bg-background border-border/60 hover:bg-destructive/5 hover:border-destructive/30 hover:text-destructive transition-colors"
             >
-              <X className="w-3 h-3 mr-2" />
-              Limpiar todos los filtros
+              <X className="w-3 h-3 mr-1.5" />
+              Limpiar filtros
             </Button>
           </div>
         )}

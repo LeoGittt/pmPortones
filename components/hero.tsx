@@ -13,85 +13,96 @@ import {
 import { ArrowRight } from "lucide-react";
 
 export function HeroSection() {
+  const heroMessages = [
+    {
+      title: "Seguridad Total",
+      subtitle: "Protege tu hogar con la mejor tecnología",
+      cta: "Conoce Nuestros Sistemas"
+    },
+    {
+      title: "Instalación Profesional",
+      subtitle: "Técnicos especializados con garantía extendida",
+      cta: "Solicita tu Cotización"
+    },
+    {
+      title: "Mantenimiento Premium",
+      subtitle: "Servicio técnico las 24 horas todos los días",
+      cta: "Programa tu Servicio"
+    },
+    {
+      title: "Tecnología Avanzada",
+      subtitle: "Control remoto y automatización inteligente",
+      cta: "Ver Innovaciones"
+    }
+  ];
+
   return (
     <section
       id="inicio"
       className="relative min-h-screen overflow-hidden flex items-center"
     >
-      {/* Carrusel de fondo */}
-      <div className="absolute inset-0 -z-20">
-        <div className="w-full h-full">
-          <div className="relative w-full h-full">
-            <Carousel opts={{ loop: true }}>
-              <CarouselContent>
-                <CarouselItem>
-                  <img src="/automatic-dual-swing-gate-motor.png" alt="Motor dual" className="object-cover w-full h-screen" />
-                </CarouselItem>
-                <CarouselItem>
-                  <img src="/sleek-automated-gate.png" alt="Portón moderno" className="object-cover w-full h-screen" />
-                </CarouselItem>
-                <CarouselItem>
-                  <img src="/residential-automation-system.png" alt="Automatización residencial" className="object-cover w-full h-screen" />
-                </CarouselItem>
-              </CarouselContent>
-              <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">
-                <div className="pointer-events-auto">
-                  <CarouselPrevious className="!static !relative !left-0 !top-0" />
-                </div>
-                <div className="pointer-events-auto">
-                  <CarouselNext className="!static !relative !right-0 !top-0" />
-                </div>
-              </div>
-            </Carousel>
-          </div>
-        </div>
-        <div className="absolute inset-0 bg-black/50"></div>
+      {/* Fondo con imagen */}
+      <div className="absolute inset-0 -z-10">
+        <img 
+          src="https://images.pexels.com/photos/10945455/pexels-photo-10945455.jpeg" 
+          alt="Portón automático" 
+          className="object-cover w-full h-full"
+          style={{ backgroundAttachment: 'fixed' }}
+        />
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-[size:50px_50px]"></div>
       </div>
 
       <div className="container mx-auto px-4 relative flex items-center justify-center">
-        {/* Clean Content Block - Centered */}
+        {/* Content with Carousel */}
         <div className="max-w-4xl space-y-12 text-center">
-          {/* Simple Badge */}
+          {/* Enhanced Badge */}
           <Badge
             variant="outline"
-            className="bg-primary/10 border-primary/30 text-primary"
+            className="bg-accent/80 border-accent text-white px-4 py-2 text-base font-bold shadow-2xl backdrop-blur-sm rounded-full hover:bg-accent transition-all duration-300 ring-2 ring-accent/30"
           >
-            30+ años de experiencia
+            ✓ 30+ años de experiencia
           </Badge>
 
-          {/* Clean Typography with Company Name */}
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <h2 className="text-2xl sm:text-3xl font-semibold text-primary">
-                PM Portones
-              </h2>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white">
-                Portones Automáticos
-              </h1>
-            </div>
-            <p className="text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto">
-              Tecnología de vanguardia para la seguridad de tu hogar
-            </p>
+          {/* Company Name */}
+          <h1 className="text-2xl sm:text-3xl font-semibold text-accent">
+            PM Portones
+          </h1>
+
+          {/* Carousel de mensajes */}
+          <div className="space-y-8 relative">
+            <Carousel opts={{ loop: true }} className="w-full">
+              <CarouselContent>
+                {heroMessages.map((message, index) => (
+                  <CarouselItem key={index}>
+                    <div className="space-y-6 p-8">
+                      <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white">
+                        {message.title}
+                      </h2>
+                      <p className="text-xl sm:text-2xl text-white/80 max-w-3xl mx-auto">
+                        {message.subtitle}
+                      </p>
+                      <div className="flex justify-center pt-4">
+                        <Link href="/contacto">
+                          <Button
+                            size="lg"
+                            className="bg-accent hover:bg-accent/90 text-white transition-colors"
+                          >
+                            {message.cta}
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="absolute left-[-60px] top-1/2 transform -translate-y-1/2" />
+              <CarouselNext className="absolute right-[-60px] top-1/2 transform -translate-y-1/2" />
+            </Carousel>
           </div>
 
-          {/* Simple Description */}
-          <p className="text-lg text-white/70 max-w-3xl mx-auto leading-relaxed">
-            Instalación, reparación y mantenimiento de portones automáticos con
-            tecnología avanzada y garantía completa.
-          </p>
-
-          {/* Clean CTA Button */}
-          <div className="flex justify-center">
-            <Link href="/catalogo">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-white transition-colors"
-              >
-                Ver Catálogo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
+         
         </div>
       </div>
     </section>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -15,6 +16,7 @@ interface NavbarProps {
 export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,10 +26,18 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Función para verificar si el link está activo
+  const isActiveLink = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(href);
+  };
+
   const navItems = [
     { href: "/", label: "Inicio" },
-    { href: "/catalogo", label: "Catálogo" },
     { href: "/nosotros", label: "Nosotros" },
+    { href: "/catalogo", label: "Catálogo" },
     { href: "/contacto", label: "Contacto" },
   ];
 
@@ -55,23 +65,28 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`relative font-semibold text-lg group transition-all duration-300 ${
-                  isScrolled
-                    ? "text-foreground hover:text-primary"
-                    : "text-white hover:text-primary"
-                }`}
-                style={{
-                  textShadow: "none",
-                }}
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:w-full"></span>
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive = isActiveLink(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative font-semibold text-lg group transition-all duration-300 ${
+                    isActive
+                      ? "text-accent"
+                      : isScrolled
+                      ? "text-foreground hover:text-accent"
+                      : "text-white hover:text-accent"
+                  }`}
+                  style={{ textShadow: 'none', boxShadow: 'none' }}
+                >
+                  {item.label}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-accent to-accent transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`}></span>
+                </Link>
+              );
+            })}
           </div>
 
           <div className="flex items-center space-x-2">
@@ -85,7 +100,7 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
             >
               <ShoppingCart className="h-4 w-4" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
                   {cartItemCount}
                 </span>
               )}
@@ -110,22 +125,27 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
 
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 glass rounded-lg m-2 border border-border/50">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`block px-4 py-3 font-semibold rounded-lg transition-all duration-300 ${
-                    isScrolled
-                      ? "text-foreground hover:text-primary hover:bg-accent/10"
-                      : "text-white hover:text-primary hover:bg-accent/10"
-                  }`}
-                  style={{ textShadow: "none" }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-sm rounded-lg m-2 border border-border/50">
+              {navItems.map((item) => {
+                const isActive = isActiveLink(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`block px-4 py-3 font-semibold rounded-lg transition-all duration-300 ${
+                      isActive
+                        ? "text-accent bg-accent/10"
+                        : isScrolled
+                        ? "text-foreground hover:text-accent hover:bg-accent/10"
+                        : "text-white hover:text-accent hover:bg-accent/10"
+                    }`}
+                    style={{ textShadow: 'none', boxShadow: 'none' }}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}

@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { Badge } from "@/components/ui/badge"
 
 interface TestimonialCardProps {
   name: string
@@ -11,7 +12,7 @@ interface TestimonialCardProps {
 
 function TestimonialCard({ name, role, content, rating }: TestimonialCardProps) {
   return (
-    <div className="bg-background border border-border/50 rounded-xl p-6 space-y-4 h-full shadow-sm hover:shadow-md transition-all duration-300 group hover:border-orange-500/20">
+    <div className="bg-background border border-border/50 rounded-xl p-6 space-y-4 h-full shadow-sm hover:shadow-md transition-all duration-300 group hover:border-accent/20">
       <div className="flex items-center gap-1">
         {[...Array(5)].map((_, i) => (
           <svg
@@ -27,7 +28,7 @@ function TestimonialCard({ name, role, content, rating }: TestimonialCardProps) 
         <p className="text-muted-foreground text-sm leading-relaxed font-medium">"{content}"</p>
       </div>
       <div className="border-t border-border/30 pt-4">
-        <div className="font-semibold text-foreground group-hover:text-orange-500 transition-colors">{name}</div>
+        <div className="font-semibold text-foreground group-hover:text-accent transition-colors">{name}</div>
         <div className="text-sm text-muted-foreground">{role}</div>
       </div>
     </div>
@@ -90,10 +91,12 @@ export function SocialProofSection() {
     <section className="py-16 bg-muted/20">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 text-muted-foreground text-sm mb-4 font-medium">
-            <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
-            Testimonios
-          </div>
+          <Badge
+            variant="outline"
+            className="bg-accent/80 border-accent text-white px-4 py-2 text-base font-bold shadow-2xl backdrop-blur-sm rounded-full hover:bg-accent transition-all duration-300 ring-2 ring-accent/30 mb-4"
+          >
+            ✓ Testimonios
+          </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Clientes Satisfechos
           </h2>
@@ -105,7 +108,7 @@ export function SocialProofSection() {
           {/* Navegación */}
           <div className="flex justify-between items-center mb-8">
             <button
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-background border border-border/50 hover:bg-orange-500/10 hover:border-orange-500/20 text-orange-500 disabled:opacity-40 disabled:hover:bg-background disabled:hover:border-border/50 transition-all duration-200 shadow-sm"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-background border border-border/50 hover:bg-accent/10 hover:border-accent/20 text-accent disabled:opacity-40 disabled:hover:bg-background disabled:hover:border-border/50 transition-all duration-200 shadow-sm"
               onClick={() => goTo(current - 1)}
               disabled={current === 0}
               aria-label="Anterior"
@@ -121,7 +124,7 @@ export function SocialProofSection() {
                   key={idx}
                   className={`w-3 h-3 rounded-full transition-all duration-200 ${
                     idx === current 
-                      ? 'bg-orange-500 scale-110' 
+                      ? 'bg-accent scale-110' 
                       : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
                   }`}
                   onClick={() => goTo(idx)}
@@ -131,7 +134,7 @@ export function SocialProofSection() {
             </div>
 
             <button
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-background border border-border/50 hover:bg-orange-500/10 hover:border-orange-500/20 text-orange-500 disabled:opacity-40 disabled:hover:bg-background disabled:hover:border-border/50 transition-all duration-200 shadow-sm"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-background border border-border/50 hover:bg-accent/10 hover:border-accent/20 text-accent disabled:opacity-40 disabled:hover:bg-background disabled:hover:border-border/50 transition-all duration-200 shadow-sm"
               onClick={() => goTo(current + 1)}
               disabled={current >= maxIndex}
               aria-label="Siguiente"

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import { ProductCard } from "@/components/product-card";
 import { HeroSection } from "@/components/hero";
 import { AboutUs } from "@/components/about-us";
@@ -100,10 +102,12 @@ function FeaturesSection() {
     <section className="py-16 bg-muted/20">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 text-muted-foreground text-sm mb-4 font-medium">
-            <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-            ¿Por qué elegir PORTONES PM?
-          </div>
+          <Badge
+            variant="outline"
+            className="bg-accent/80 border-accent text-white px-4 py-2 text-base font-bold shadow-2xl backdrop-blur-sm rounded-full hover:bg-accent transition-all duration-300 ring-2 ring-accent/30 mb-4"
+          >
+            ✓ ¿Por qué elegir PORTONES PM?
+          </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Tu Tranquilidad es Nuestra Prioridad
           </h2>
@@ -117,9 +121,9 @@ function FeaturesSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="text-center p-6 bg-background rounded-xl border border-border/50 hover:border-primary/20 transition-colors group"
+              className="text-center p-6 bg-background rounded-xl border border-border/50 hover:border-accent/20 transition-colors group"
             >
-              <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-primary group-hover:bg-primary/20 transition-colors">
+              <div className="w-16 h-16 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-4 text-accent group-hover:bg-accent/20 transition-colors">
                 {feature.icon}
               </div>
               <h3 className="font-semibold text-foreground mb-2">
@@ -139,7 +143,7 @@ function FeaturesSection() {
 // Componente de sección CTA mejorada
 function CTASection() {
   return (
-    <section className="py-16 bg-primary/5 border-y border-primary/10">
+    <section className="py-16 bg-accent/5 border-y border-accent/10">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           <div>
@@ -164,12 +168,20 @@ function CTASection() {
           </div>
           <div className="lg:text-right">
             <div className="inline-flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors shadow-lg">
+              <a
+                href="https://wa.me/1165145507?text=Hola%2C%20me%20interesa%20solicitar%20una%20cotizaci%C3%B3n%20para%20automatizar%20mi%20port%C3%B3n.%20%C2%BFPodr%C3%ADan%20ayudarme%3F"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors shadow-lg inline-flex items-center justify-center"
+              >
                 Solicitar Cotización
-              </button>
-              <button className="px-8 py-3 border border-border hover:bg-muted/50 rounded-lg font-semibold transition-colors">
+              </a>
+              <Link
+                href="/catalogo"
+                className="px-8 py-3 border border-border hover:bg-muted/50 rounded-lg font-semibold transition-colors inline-flex items-center justify-center"
+              >
                 Ver Catálogo
-              </button>
+              </Link>
             </div>
             <p className="text-sm text-muted-foreground mt-4">
               🕐 Respuesta garantizada en menos de 24 horas
@@ -210,8 +222,14 @@ export default function HomePage() {
       <section className="py-16 bg-muted/10">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Productos Destacados</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Conoce nuestros productos más populares y recomendados.</p>
+            <Badge
+              variant="outline"
+              className="bg-accent/80 border-accent text-white px-4 py-2 text-base font-bold shadow-2xl backdrop-blur-sm rounded-full hover:bg-accent transition-all duration-300 ring-2 ring-accent/30 mb-4"
+            >
+              ✓ Productos Destacados
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Nuestros Mejores Productos</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Conoce nuestros productos más populares y recomendados con tecnología de vanguardia.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {(require("@/lib/products").mockProducts as Product[])
@@ -234,9 +252,9 @@ export default function HomePage() {
 
       <CTASection />
 
-      <Location />
+      {/* <Location /> */}
 
-      <ContactForm />
+      {/* <ContactForm /> */}
 
       <Footer />
 
