@@ -128,7 +128,7 @@ export function Footer() {
               © {new Date().getFullYear()} PORTONES PM. Todos los derechos reservados.
             </div>
             <div className="text-muted-foreground text-sm">
-              Desarrollado y diseñado por Nexium Solutions
+              Desarrollado y diseñado por Nexium Solutions Y Dietiero
             </div>
           </div>
         </div>
