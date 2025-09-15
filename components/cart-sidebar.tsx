@@ -5,8 +5,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-import { SheetClose } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet"
 import { Badge } from "@/components/ui/badge"
 import { Minus, Plus, ShoppingBag, ExternalLink, Trash2, User, Phone, Mail, CreditCard } from "lucide-react"
 import { useCart } from "@/contexts/cart-context"
@@ -72,7 +71,10 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-  <SheetContent className="w-full max-w-full sm:max-w-md lg:max-w-lg flex flex-col h-full p-0 bg-orange-50/95 backdrop-blur-xl border-l border-orange-300/50 md:rounded-l-xl md:mt-0 mt-0 md:h-full h-screen overflow-y-auto">
+  <SheetContent 
+        className="w-full max-w-full sm:max-w-md lg:max-w-lg flex flex-col h-full p-0 bg-orange-50/95 backdrop-blur-xl border-l border-orange-300/50 md:rounded-l-xl md:mt-0 mt-0 md:h-full h-screen overflow-y-auto"
+        showClose={false}
+      >
   <SheetHeader className="p-2 sm:p-4 bg-gradient-to-r from-orange-400/20 to-orange-600/10 border-b border-orange-300/50 sticky top-0 z-20">
           <div className="flex items-center justify-between">
             <SheetTitle className="flex items-center gap-3 text-lg sm:text-xl font-bold">
@@ -86,8 +88,12 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                 </div>
               </div>
             </SheetTitle>
-            <SheetClose className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full p-2 text-xl hover:bg-orange-200 transition-colors" aria-label="Cerrar carrito">
-              <span aria-hidden="true">×</span>
+            <SheetClose 
+              className="inline-flex items-center justify-center rounded-full p-2 text-xl hover:bg-orange-200 transition-colors opacity-70 hover:opacity-100" 
+              aria-label="Cerrar carrito"
+              onClick={onClose}
+            >
+              ×
             </SheetClose>
           </div>
         </SheetHeader>
@@ -142,9 +148,17 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                         </div>
                         <div className="text-right min-w-[60px] w-full sm:w-auto">
                           <p className="font-bold text-xs text-primary">
-                            {formatPrice(item.product.price * item.quantity)}
+                            {item.product.price && typeof item.product.price === 'number' 
+                              ? formatPrice(item.product.price * item.quantity)
+                              : "Precio consultar"
+                            }
                           </p>
-                          <p className="text-[11px] text-muted-foreground">{formatPrice(item.product.price)} c/u</p>
+                          <p className="text-[11px] text-muted-foreground">
+                            {item.product.price && typeof item.product.price === 'number' 
+                              ? `${formatPrice(item.product.price)} c/u`
+                              : "Consultar precio"
+                            }
+                          </p>
                         </div>
                       </div>
                       <div className="flex flex-col sm:flex-row items-center justify-between mt-1 gap-1 w-full">
@@ -186,7 +200,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                   <div className="flex flex-col sm:flex-row justify-between items-center mb-4 w-full">
                     <span className="text-base sm:text-lg font-bold">Total:</span>
                     <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-700 bg-clip-text text-transparent mt-2 sm:mt-0">
-                      {formatPrice(total)}
+                      {total > 0 ? formatPrice(total) : "Total a consultar"}
                     </span>
                   </div>
 

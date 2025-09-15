@@ -13,7 +13,12 @@ export interface CartState {
 }
 
 export function calculateCartTotal(items: CartItem[]): number {
-  return items.reduce((total, item) => total + item.product.price * item.quantity, 0)
+  return items.reduce((total, item) => {
+    if (typeof item.product.price === 'number') {
+      return total + (item.product.price * item.quantity)
+    }
+    return total
+  }, 0)
 }
 
 export function calculateItemCount(items: CartItem[]): number {
@@ -31,17 +36,23 @@ export function generateWhatsAppMessage(
             .map(([key, value]) => `${key}: ${value}`)
             .join(", ")})`
         : ""
-      return `${index + 1}. ${item.product.name}${variations} (x${item.quantity}) → $${(item.product.price * item.quantity).toLocaleString("es-AR")}`
+      
+      const priceText = typeof item.product.price === 'number' 
+        ? `$${(item.product.price * item.quantity).toLocaleString("es-AR")}`
+        : "Precio a consultar"
+      
+      return `${index + 1}. ${item.product.name}${variations} (x${item.quantity}) → ${priceText}`
     })
     .join("\n")
 
   const total = calculateCartTotal(items)
+  const totalText = total > 0 ? `$${total.toLocaleString("es-AR")}` : "Total a consultar"
 
   return `¡Hola! Quiero realizar el siguiente pedido en PORTONES PM:
 
 ${itemsList}
 
-TOTAL: $${total.toLocaleString("es-AR")}
+TOTAL: ${totalText}
 
 Datos de contacto:
 Nombre: ${customerData.name}
