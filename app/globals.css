@@ -1,3 +1,25 @@
+/* Botón flotante para "Ver Productos" */
+ .floating-catalog-btn {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  z-index: 1000;
+  background: orange;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: background 0.2s, transform 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.floating-catalog-btn:hover {
+  background: #ff8800;
+  transform: scale(1.05);
+}
 @import "tailwindcss";
 @import "tw-animate-css";
 

@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CartProvider } from "@/contexts/cart-context";
 import { Toaster } from "@/components/ui/sonner";
+import FloatingCatalogButton from "@/components/floating-catalog-btn";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function RootLayout({
         >
           <CartProvider>
             {children}
+            <FloatingCatalogButton />
             <Toaster position="top-right" />
           </CartProvider>
         </ThemeProvider>

@@ -56,9 +56,9 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
               <Image
                 src="/images/logo-portones-pm.png"
                 alt="PORTONES PM"
-                width={200}
-                height={100}
-                className="h-20 w-auto transition-transform duration-300 group-hover:scale-105"
+                width={350} // tamaño moderado
+                height={175} // mantiene proporción
+                className="h-40 mt-1.5 w-auto transition-transform duration-300 group-hover:scale-105"
                 priority
               />
             </div>
@@ -78,12 +78,14 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
                       ? "text-foreground hover:text-accent"
                       : "text-white hover:text-accent"
                   }`}
-                  style={{ textShadow: 'none', boxShadow: 'none' }}
+                  style={{ textShadow: "none", boxShadow: "none" }}
                 >
                   {item.label}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-accent to-accent transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`}></span>
+                  <span
+                    className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-accent to-accent transition-all duration-300 ${
+                      isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  ></span>
                 </Link>
               );
             })}
@@ -139,7 +141,7 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
                         ? "text-foreground hover:text-accent hover:bg-accent/10"
                         : "text-white hover:text-accent hover:bg-accent/10"
                     }`}
-                    style={{ textShadow: 'none', boxShadow: 'none' }}
+                    style={{ textShadow: "none", boxShadow: "none" }}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.label}
