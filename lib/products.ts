@@ -33,7 +33,7 @@ export const mockProducts: Product[] = [
   {
     id: "1",
     name: "Motor para portón corredizo PPA DZ Rio",
-    price: 85000,
+    price: "N/A",
     category: "Motores para Portones",
     description: "Motor potente y silencioso, ideal para portones de hasta 400 kg. Incluye 2 controles remotos y 3 metros de cremallera.",
     images: ["https://http2.mlstatic.com/D_NQ_NP_788269-MLU75999853623_042024-O.webp"],
@@ -497,7 +497,7 @@ export const mockProducts: Product[] = [
   {
     id: "2",
     name: "Control remoto PPA ZAP",
-    price: 12000,
+    price: "N/A",
     category: "Controles Remotos",
     description: "Control remoto de dos canales con tecnología de código variable, compatible con toda la línea de motores PPA.",
     images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAWvVGXpczYFcGnQYr52jOUWTBdusmu_bHAA&s"],
@@ -532,7 +532,7 @@ export const mockProducts: Product[] = [
   {
     id: "3",
     name: "Engranaje de repuesto PPA",
-    price: 5500,
+    price: "N/A",
     category: "Repuestos",
     description: "Engranaje interno de repuesto para motores de portones PPA. Fabricado con materiales de alta resistencia para una mayor durabilidad.",
     images: ["https://http2.mlstatic.com/D_NQ_NP_807479-MLA54333884629_032023-O.webp"],
@@ -682,7 +682,7 @@ export const mockProducts: Product[] = [
   {
     id: "4",
     name: "Luz de baliza LED universal",
-    price: 15000,
+    price: "N/A",
     category: "Accesorios",
     description: "Baliza de señalización con tecnología LED de bajo consumo. Compatible con todas las marcas.",
     images: ["https://http2.mlstatic.com/D_NQ_NP_782389-MLA76087981105_042024-O.webp"],
@@ -715,7 +715,7 @@ export const mockProducts: Product[] = [
   {
     id: "5",
     name: "Kit completo portón batiente doble hoja",
-    price: 250000,
+    price: "N/A",
     category: "Sistemas Completos",
     description: "Kit completo para automatizar portones batientes de dos hojas. Incluye motor, central de comando y sensores de seguridad.",
     images: ["https://http2.mlstatic.com/D_NQ_NP_960225-MLA48717167891_122021-O.webp"],
