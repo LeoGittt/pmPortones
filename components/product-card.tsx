@@ -18,13 +18,15 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
     return (
       <div className="group relative bg-card border border-border/50 rounded-xl overflow-hidden hover:border-accent/30 transition-all duration-300 hover:shadow-lg flex">
         {/* Imagen del producto */}
-        <div className="relative w-48 h-32 bg-muted/50 flex-shrink-0">
+        {/* CAMBIO: bg-muted/50 a bg-card */}
+        <div className="relative w-48 h-32 bg-card flex items-center justify-center flex-shrink-0">
           <Image
             src={product.images[0] || "/placeholder.svg"}
             alt={product.name}
             fill
             sizes="200px"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            // CAMBIO: eliminado p-2
+            className="object-contain transition-transform duration-500 group-hover:scale-105"
             priority={product.featured}
           />
           
@@ -93,13 +95,15 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
   return (
     <div className="group relative bg-card border border-border/50 rounded-xl overflow-hidden hover:border-accent/30 transition-all duration-300 hover:shadow-lg h-full flex flex-col">
       {/* Imagen del producto */}
-      <div className="relative w-full h-48 sm:h-56 bg-muted/50 flex-shrink-0">
+      {/* CAMBIO: bg-muted/50 a bg-card y agregado flex items-center justify-center para centrar */}
+      <div className="relative w-full h-48 sm:h-56 bg-card flex items-center justify-center flex-shrink-0">
         <Image
           src={product.images[0] || "/placeholder.svg"}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          // CAMBIO: eliminado p-2
+          className="object-contain transition-transform duration-500 group-hover:scale-105"
           priority={product.featured}
         />
         
