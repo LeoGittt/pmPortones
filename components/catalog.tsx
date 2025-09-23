@@ -1,137 +1,117 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import { ProductCard } from "@/components/product-card"
-import { CatalogFilters, type FilterState } from "@/components/catalog-filters"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Search, Filter, Grid3X3, List } from "lucide-react"
-import { mockProducts, type Product } from "@/lib/products"
+import { useState, useMemo } from "react";
+import { ProductCard } from "@/components/product-card";
+import { CatalogFilters, type FilterState } from "@/components/catalog-filters";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, Search, Filter, Grid3X3, List } from "lucide-react";
+import { mockProducts, type Product } from "@/lib/products";
 
 interface CatalogProps {
-  onAddToCart: (product: Product, quantity?: number, variations?: Record<string, string>) => void
+  onAddToCart: (product: Product, quantity?: number, variations?: Record<string, string>) => void;
 }
 
-const PRODUCTS_PER_PAGE = 6
+const PRODUCTS_PER_PAGE = 6;
 
 export function Catalog({ onAddToCart }: CatalogProps) {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [currentPage, setCurrentPage] = useState(1);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [filters, setFilters] = useState<FilterState>({
     search: "",
     category: "",
     sortBy: "name-asc",
-  })
+  });
 
   const filteredAndSortedProducts = useMemo(() => {
-    let filtered = mockProducts
+    let filtered = mockProducts;
 
-    // Apply search filter
     if (filters.search) {
-      const searchTerm = filters.search.toLowerCase()
+      const searchTerm = filters.search.toLowerCase();
       filtered = filtered.filter(
         (product) =>
           product.name.toLowerCase().includes(searchTerm) ||
           product.description.toLowerCase().includes(searchTerm) ||
-          product.category.toLowerCase().includes(searchTerm),
-      )
+          product.category.toLowerCase().includes(searchTerm)
+      );
     }
 
-    // Apply category filter
     if (filters.category) {
-      filtered = filtered.filter((product) => product.category === filters.category)
+      filtered = filtered.filter((product) => product.category === filters.category);
     }
 
-    // Apply sorting
     filtered.sort((a, b) => {
       switch (filters.sortBy) {
         case "name-desc":
-          return b.name.localeCompare(a.name)
+          return b.name.localeCompare(a.name);
         case "price-asc":
-          return a.price - b.price
+          return (typeof a.price === "number" ? a.price : 0) - (typeof b.price === "number" ? b.price : 0);
         case "price-desc":
-          return b.price - a.price
+          return (typeof b.price === "number" ? b.price : 0) - (typeof a.price === "number" ? a.price : 0);
         case "category":
-          return a.category.localeCompare(b.category)
-        default: // name-asc
-          return a.name.localeCompare(a.name)
+          return a.category.localeCompare(b.category);
+        default:
+          return a.name.localeCompare(b.name);
       }
-    })
+    });
 
-    return filtered
-  }, [filters])
+    return filtered;
+  }, [filters]);
 
-  const totalPages = Math.ceil(filteredAndSortedProducts.length / PRODUCTS_PER_PAGE)
-  const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE
-  const paginatedProducts = filteredAndSortedProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE)
+  const totalPages = Math.ceil(filteredAndSortedProducts.length / PRODUCTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+  const paginatedProducts = filteredAndSortedProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
   const handleFiltersChange = (newFilters: FilterState) => {
-    setFilters(newFilters)
-    setCurrentPage(1) // Reset to first page when filters change
-  }
+    setFilters(newFilters);
+    setCurrentPage(1);
+  };
 
   const handleClearFilters = () => {
-    setFilters({
-      search: "",
-      category: "",
-      sortBy: "name-asc",
-    })
-    setCurrentPage(1)
-  }
+    setFilters({ search: "", category: "", sortBy: "name-asc" });
+    setCurrentPage(1);
+  };
 
-  const handleAddToCart = (product: Product) => {
-    onAddToCart(product)
-  }
+  const handleAdd = (product: Product) => {
+    onAddToCart(product);
+  };
 
   return (
-    <section id="catalogo" className="py-16 bg-background">
+    <section id="catalogo" className="py-12 bg-background">
       <div className="container mx-auto px-4 max-w-6xl">
-        {/* Layout de dos columnas: Filtros + Productos */}
-        <div className="grid lg:grid-cols-4 gap-8">
-          {/* Sidebar - Filtros */}
+        <div className="grid lg:grid-cols-4 gap-6">
+          {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-24">
-              <CatalogFilters 
-                filters={filters} 
-                onFiltersChange={handleFiltersChange} 
-                onClearFilters={handleClearFilters} 
+              <CatalogFilters
+                filters={filters}
+                onFiltersChange={handleFiltersChange}
+                onClearFilters={handleClearFilters}
               />
             </div>
           </div>
 
-          {/* Main Content - Productos */}
+          {/* Productos */}
           <div className="lg:col-span-3">
-            {/* Controls Bar */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 p-4 bg-card border border-border rounded-lg shadow-sm">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <div className="flex items-center gap-3">
-                  <Search className="w-5 h-5 text-accent" />
-                  <div>
-                    <p className="text-lg font-semibold text-foreground">
-                      {paginatedProducts.length} productos encontrados
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      de {filteredAndSortedProducts.length} disponibles
-                    </p>
-                  </div>
+            {/* Barra de controles */}
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 p-3 bg-card border border-border rounded-lg">
+              <div className="flex items-center gap-3">
+                <Search className="w-5 h-5 text-accent" />
+                <div>
+                  <p className="text-base sm:text-lg font-semibold text-foreground">
+                    {paginatedProducts.length} productos
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    de {filteredAndSortedProducts.length} disponibles
+                  </p>
                 </div>
-                
-                {totalPages > 1 && (
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-accent/10 rounded-lg border border-accent/20">
-                    <div className="w-2 h-2 bg-accent rounded-full" />
-                    <span className="text-sm font-medium text-accent">
-                      Página {currentPage} de {totalPages} • {PRODUCTS_PER_PAGE} por página
-                    </span>
-                  </div>
-                )}
               </div>
 
-              {/* View Mode Toggle */}
-              <div className="flex items-center gap-2 p-1 bg-muted/50 rounded-lg border border-border">
+              <div className="flex items-center gap-1 sm:gap-2 p-1 bg-muted/50 rounded-lg border border-border">
                 <Button
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('grid')}
-                  className="h-8 px-3"
+                  className="h-8 px-2 sm:px-3"
                 >
                   <Grid3X3 className="w-4 h-4" />
                 </Button>
@@ -139,28 +119,32 @@ export function Catalog({ onAddToCart }: CatalogProps) {
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('list')}
-                  className="h-8 px-3"
+                  className="h-8 px-2 sm:px-3"
                 >
                   <List className="w-4 h-4" />
                 </Button>
               </div>
             </div>
 
-            {/* Products Grid */}
+            {/* Grid responsive de productos */}
             {paginatedProducts.length > 0 ? (
-              <div className={`grid gap-6 mb-12 ${
-                viewMode === 'grid' 
-                  ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3' 
-                  : 'grid-cols-1'
-              }`}>
-                {paginatedProducts.map((product, index) => (
+              <div
+                className={`
+                  grid gap-4 mb-10 items-stretch
+                  ${viewMode === 'grid'
+                    ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid-auto-rows-[1fr]'
+                    : 'grid-cols-1'
+                  }
+                `}
+              >
+                {paginatedProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="transform transition-all duration-300 hover:scale-[1.02]"
+                    className="transform transition-all duration-200 hover:scale-[1.02] max-w-sm mx-auto h-full w-full"
                   >
-                    <ProductCard 
-                      product={product} 
-                      onAddToCart={handleAddToCart}
+                    <ProductCard
+                      product={product}
+                      onAddToCart={handleAdd}
                       viewMode={viewMode}
                     />
                   </div>
@@ -168,129 +152,61 @@ export function Catalog({ onAddToCart }: CatalogProps) {
               </div>
             ) : (
               <div className="text-center py-16 bg-card border border-dashed border-border rounded-lg">
-                <div className="mb-6">
-                  <div className="w-16 h-16 mx-auto bg-muted rounded-full flex items-center justify-center">
-                    <Search className="w-8 h-8 text-muted-foreground" />
-                  </div>
+                <div className="w-16 h-16 mx-auto bg-muted rounded-full flex items-center justify-center mb-4">
+                  <Search className="w-8 h-8 text-muted-foreground" />
                 </div>
-                
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  No encontramos productos
-                </h3>
-                <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                  Intenta ajustar los filtros o usar términos de búsqueda diferentes. 
-                  Nuestro catálogo se actualiza constantemente.
+                <h3 className="text-xl font-semibold text-foreground mb-2">No encontramos productos</h3>
+                <p className="text-muted-foreground mb-4 max-w-md mx-auto">
+                  Ajusta los filtros o usa otros términos de búsqueda.
                 </p>
-                
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <Button 
-                    onClick={handleClearFilters} 
-                    variant="default"
-                    className="bg-accent hover:bg-accent/90"
-                  >
-                    <Filter className="w-4 h-4 mr-2" />
-                    Limpiar Filtros
+                <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                  <Button onClick={handleClearFilters} className="bg-accent hover:bg-accent/90 flex items-center gap-1">
+                    <Filter className="w-4 h-4" /> Limpiar
                   </Button>
-                  <Button variant="outline">
-                    Ver Todos los Productos
-                  </Button>
+                  <Button variant="outline">Ver todos</Button>
                 </div>
               </div>
             )}
 
-            {/* Pagination */}
+            {/* Paginación */}
             {totalPages > 1 && (
-              <div className="flex flex-col items-center gap-6 mt-12 p-6 bg-card border border-border rounded-lg">
-                {/* Page Numbers */}
-                <div className="flex flex-wrap justify-center items-center gap-2">
+              <div className="flex flex-wrap justify-center items-center gap-2 mt-8">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="h-9 px-3"
+                >
+                  <ChevronLeft className="w-4 h-4 mr-1" /> Anterior
+                </Button>
+
+                {Array.from({ length: totalPages }, (_, i) => (
                   <Button
-                    variant="outline"
+                    key={i + 1}
+                    variant={currentPage === i + 1 ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                    disabled={currentPage === 1}
-                    className="h-10 px-4"
+                    onClick={() => setCurrentPage(i + 1)}
+                    className="h-9 w-9 p-0"
                   >
-                    <ChevronLeft className="w-4 h-4 mr-1" />
-                    Anterior
+                    {i + 1}
                   </Button>
+                ))}
 
-                  <div className="flex gap-1">
-                    {Array.from({ length: Math.min(7, totalPages) }, (_, i) => {
-                      let pageNum
-                      if (totalPages <= 7) {
-                        pageNum = i + 1
-                      } else if (currentPage <= 4) {
-                        pageNum = i + 1
-                      } else if (currentPage >= totalPages - 3) {
-                        pageNum = totalPages - 6 + i
-                      } else {
-                        pageNum = currentPage - 3 + i
-                      }
-
-                      return (
-                        <Button
-                          key={pageNum}
-                          variant={currentPage === pageNum ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setCurrentPage(pageNum)}
-                          className={`w-10 h-10 ${
-                            currentPage === pageNum 
-                              ? 'bg-accent text-accent-foreground' 
-                              : ''
-                          }`}
-                        >
-                          {pageNum}
-                        </Button>
-                      )
-                    })}
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-                    disabled={currentPage === totalPages}
-                    className="h-10 px-4"
-                  >
-                    Siguiente
-                    <ChevronRight className="w-4 h-4 ml-1" />
-                  </Button>
-                </div>
-                
-                {/* Pagination Info */}
-                <div className="text-center space-y-2">
-                  <p className="text-sm text-muted-foreground">
-                    Mostrando productos <span className="font-medium text-foreground">{startIndex + 1}</span> al{" "}
-                    <span className="font-medium text-foreground">{Math.min(startIndex + PRODUCTS_PER_PAGE, filteredAndSortedProducts.length)}</span>{" "}
-                    de <span className="font-medium text-foreground">{filteredAndSortedProducts.length}</span> resultados
-                  </p>
-                  
-                  {/* Quick Jump */}
-                  {totalPages > 5 && (
-                    <div className="flex items-center justify-center gap-2 text-sm">
-                      <span className="text-muted-foreground">Ir a página:</span>
-                      <div className="flex gap-1">
-                        {[1, Math.ceil(totalPages/2), totalPages].map((page, index) => (
-                          <Button
-                            key={index}
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setCurrentPage(page)}
-                            disabled={currentPage === page}
-                            className="h-7 px-2 text-xs"
-                          >
-                            {page === 1 ? 'Primera' : page === totalPages ? 'Última' : `${page}`}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="h-9 px-3"
+                >
+                  Siguiente <ChevronRight className="w-4 h-4 ml-1" />
+                </Button>
               </div>
             )}
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

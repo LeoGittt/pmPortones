@@ -74,7 +74,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
     <main className="min-h-screen bg-background">
       <Navbar cartItemCount={itemCount} onCartClick={handleCartClick} />
 
-      {/* Breadcrumbs */}
+      {/* Breadcrumbs y botón volver */}
       <div className="pt-24 pb-4 bg-background border-b border-border/40">
         <div className="container mx-auto px-4 max-w-6xl">
           <nav
@@ -82,8 +82,6 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
             style={{ WebkitOverflowScrolling: 'touch' }}
             aria-label="Breadcrumb"
           >
-           
-            
             <span className="text-foreground font-medium flex-shrink-0">{product.name}</span>
           </nav>
 
@@ -98,10 +96,11 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
         </div>
       </div>
 
-      {/* Contenido principal */}
-      <div className="py-12">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-12">
+      {/* Contenido principal del producto */}
+      <div className="py-8 sm:py-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          {/* Diseño principal: 1 columna en móviles, 2 en pantallas grandes */}
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
             {/* Galería de imágenes */}
             <div className="space-y-4">
               <div className="relative aspect-square bg-muted/50 rounded-xl overflow-hidden">
@@ -109,12 +108,12 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                   src={product.images[selectedImageIndex] || "/placeholder.svg"}
                   alt={product.name}
                   fill
-                  className="object-cover"
+                  className="object-contain p-4 md:p-8"
                   priority
                 />
                 {!product.inStock && (
                   <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                    <Badge variant="destructive" className="text-lg px-4 py-2">
+                    <Badge variant="destructive" className="text-sm sm:text-lg px-3 py-1 sm:px-4 sm:py-2">
                       Sin Stock
                     </Badge>
                   </div>
@@ -128,7 +127,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                     <button
                       key={index}
                       onClick={() => setSelectedImageIndex(index)}
-                      className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
+                      className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-colors ${
                         selectedImageIndex === index
                           ? "border-accent"
                           : "border-border hover:border-border/80"
@@ -139,7 +138,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                         alt={`${product.name} - Vista ${index + 1}`}
                         width={80}
                         height={80}
-                        className="object-cover w-full h-full"
+                        className="object-contain w-full h-full p-1"
                       />
                     </button>
                   ))}
@@ -148,40 +147,40 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
             </div>
 
             {/* Información del producto */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Header */}
               <div>
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
                   <Badge
                     variant="outline"
-                    className="text-accent border-accent/20"
+                    className="text-accent border-accent/20 text-xs sm:text-sm"
                   >
                     {product.category}
                   </Badge>
                   {product.featured && (
-                    <Badge className="bg-gradient-to-r from-yellow-500 to-amber-500">
+                    <Badge className="bg-gradient-to-r from-yellow-500 to-amber-500 text-xs sm:text-sm">
                       Destacado
                     </Badge>
                   )}
                 </div>
 
-                <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 leading-tight">
                   {product.name}
                 </h1>
 
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-sm sm:text-lg text-muted-foreground leading-relaxed">
                   {product.description}
                 </p>
               </div>
 
-              {/* Precio */}
-              <div className="bg-muted/30 rounded-xl p-6">
-                <div className="flex items-center justify-between mb-4">
+              {/* Precio y acciones */}
+              <div className="bg-muted/30 rounded-xl p-4 sm:p-6">
+                <div className="flex flex-wrap items-center justify-between mb-4 gap-4">
                   <div>
-                    <div className="text-3xl font-bold text-foreground">
+                    <div className="text-2xl sm:text-3xl font-bold text-foreground">
                       {formatPrice(product.price)}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       Precio final incluye IVA
                     </div>
                   </div>
@@ -202,42 +201,47 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                 </div>
 
                 {/* Controles de cantidad y agregar al carrito */}
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center border border-border rounded-lg">
-                    <button
-                      onClick={() => handleQuantityChange(quantity - 1)}
-                      disabled={quantity <= 1}
-                      className="px-3 py-2 hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      -
-                    </button>
-                    <span className="px-4 py-2 border-x border-border min-w-[60px] text-center">
-                      {quantity}
-                    </span>
-                    <button
-                      onClick={() => handleQuantityChange(quantity + 1)}
-                      className="px-3 py-2 hover:bg-muted"
-                    >
-                      +
-                    </button>
-                  </div>
+                <div className="flex flex-col sm:flex-row items-stretch gap-2 sm:gap-4 w-full">
+  {/* Control de cantidad */}
+  <div className="flex items-center border border-border rounded-lg overflow-hidden">
+    <button
+      onClick={() => handleQuantityChange(quantity - 1)}
+      disabled={quantity <= 1}
+      className="w-10 h-10 flex items-center justify-center hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      -
+    </button>
 
-                  <Button
-                    onClick={handleAddToCart}
-                    disabled={!product.inStock}
-                    className="flex-1 h-12"
-                  >
-                    <ShoppingCart className="w-5 h-5 mr-2" />
-                    {product.inStock ? "Agregar al carrito" : "No disponible"}
-                  </Button>
-                </div>
+    <span className="px-4 py-2 border-x border-border min-w-[50px] sm:min-w-[60px] text-center">
+      {quantity}
+    </span>
+
+    <button
+      onClick={() => handleQuantityChange(quantity + 1)}
+      className="w-10 h-10 flex items-center justify-center hover:bg-muted"
+    >
+      +
+    </button>
+  </div>
+
+  {/* Botón de agregar al carrito */}
+  <Button
+    onClick={handleAddToCart}
+    disabled={!product.inStock}
+    className="w-full sm:flex-1 h-12 flex items-center bg-orange-400 justify-center"
+  >
+    <ShoppingCart className="w-5 h-5 mr-2" />
+    {product.inStock ? "Agregar al carrito" : "No disponible"}
+  </Button>
+</div>
+
               </div>
 
               {/* Beneficios */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
-                  <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
-                    <Truck className="w-5 h-5 text-green-600" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                <div className="flex items-center gap-2 p-3 sm:p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                    <Truck className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                   </div>
                   <div>
                     <div className="font-medium text-foreground text-sm">
@@ -247,9 +251,9 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-                  <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-blue-600" />
+                <div className="flex items-center gap-2 p-3 sm:p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                    <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                   </div>
                   <div>
                     <div className="font-medium text-foreground text-sm">
@@ -261,9 +265,9 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 p-4 bg-purple-50 dark:bg-purple-950/20 rounded-lg">
-                  <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                    <HeadphonesIcon className="w-5 h-5 text-purple-600" />
+                <div className="flex items-center gap-2 p-3 sm:p-4 bg-purple-50 dark:bg-purple-950/20 rounded-lg">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                    <HeadphonesIcon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                   </div>
                   <div>
                     <div className="font-medium text-foreground text-sm">
@@ -279,58 +283,58 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
       </div>
 
       {/* Información adicional */}
-      <div className="py-16 bg-muted/20">
+      <div className="py-12 sm:py-16 bg-muted/20">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
+            <div className="space-y-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
                 Características
               </h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span className="text-muted-foreground">
+                  <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                  <span className="text-sm sm:text-base text-muted-foreground">
                     Motor de alta resistencia
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span className="text-muted-foreground">
+                  <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                  <span className="text-sm sm:text-base text-muted-foreground">
                     Sistema de seguridad integrado
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span className="text-muted-foreground">
+                  <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                  <span className="text-sm sm:text-base text-muted-foreground">
                     Control remoto incluido
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span className="text-muted-foreground">
+                  <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                  <span className="text-sm sm:text-base text-muted-foreground">
                     Instalación profesional
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <span className="text-muted-foreground">
+                  <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                  <span className="text-sm sm:text-base text-muted-foreground">
                     Garantía extendida disponible
                   </span>
                 </div>
               </div>
             </div>
 
-            <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">
+            <div className="space-y-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
                 ¿Necesitas ayuda?
               </h3>
               <div className="space-y-4">
-                <p className="text-muted-foreground">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Nuestro equipo de expertos está disponible para ayudarte con
                   cualquier consulta sobre este producto o su instalación.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Button className="flex-1">Consultar por WhatsApp</Button>
+                  <Button className="flex-1 bg-orange-400">Consultar por WhatsApp</Button>
                   <Button variant="outline" className="flex-1">
                     Solicitar Instalación
                   </Button>
@@ -342,13 +346,13 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
       </div>
 
       {/* Productos Destacados */}
-      <div className="py-16 bg-background">
+      <div className="py-12 sm:py-16 bg-background">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
               Productos Destacados
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
               Descubre nuestros productos más populares y encuentra la solución
               perfecta para tu hogar
             </p>
@@ -367,7 +371,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
               ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-12">
             <Link href="/catalogo">
               <Button variant="outline" size="lg">
                 Ver todos los productos

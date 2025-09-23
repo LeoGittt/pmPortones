@@ -9,25 +9,23 @@ import { type Product, formatPrice } from "@/lib/products"
 
 interface ProductCardProps {
   product: Product
-  onAddToCart: (product: Product) => void // ahora solo abre el modal
+  onAddToCart: (product: Product) => void
   viewMode?: 'grid' | 'list'
 }
 
 export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: ProductCardProps) {
   if (viewMode === 'list') {
     return (
-      <div className="group relative bg-card border border-border/50 rounded-xl overflow-hidden hover:border-accent/30 transition-all duration-300 hover:shadow-lg flex">
+      <div className="group relative bg-card border border-border/50 rounded-xl overflow-hidden hover:border-accent/30 transition-all duration-300 hover:shadow-lg flex min-h-[160px] sm:min-h-[200px]">
         {/* Imagen del producto */}
-        {/* CAMBIO: bg-muted/50 a bg-card */}
-        <div className="relative w-48 h-32 bg-card flex items-center justify-center flex-shrink-0">
+        <div className="relative w-1/3 sm:w-48 bg-card flex items-center justify-center flex-shrink-0">
           <Image
             src={product.images[0] || "/placeholder.svg"}
             alt={product.name}
             fill
             sizes="200px"
-            // CAMBIO: eliminado p-2
             className="object-contain transition-transform duration-500 group-hover:scale-105"
-            priority={product.featured}
+            priority={typeof product.featured === "boolean" ? product.featured : undefined}
           />
           
           {/* Overlay sutil en hover */}
@@ -63,7 +61,7 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
         {/* Contenido del producto */}
         <div className="flex-1 p-4 flex flex-col justify-between">
           <div>
-            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-200 mb-2 line-clamp-2">
+            <h3 className="font-semibold text-base md:text-lg group-hover:text-primary transition-colors duration-200 mb-2 line-clamp-2">
               {product.name}
             </h3>
             <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
@@ -93,18 +91,16 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
   }
 
   return (
-    <div className="group relative bg-card border border-border/50 rounded-xl overflow-hidden hover:border-accent/30 transition-all duration-300 hover:shadow-lg h-full flex flex-col">
+    <div className="group relative bg-card border border-border/50 rounded-xl overflow-hidden hover:border-accent/30 transition-all duration-300 hover:shadow-lg h-full flex flex-col min-w-0">
       {/* Imagen del producto */}
-      {/* CAMBIO: bg-muted/50 a bg-card y agregado flex items-center justify-center para centrar */}
       <div className="relative w-full h-48 sm:h-56 bg-card flex items-center justify-center flex-shrink-0">
         <Image
           src={product.images[0] || "/placeholder.svg"}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          // CAMBIO: eliminado p-2
           className="object-contain transition-transform duration-500 group-hover:scale-105"
-          priority={product.featured}
+          priority={typeof product.featured === "boolean" ? product.featured : undefined}
         />
         
         {/* Overlay sutil en hover */}
@@ -148,8 +144,8 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
 
       {/* Contenido - Flex para distribuir el espacio */}
       <div className="p-4 sm:p-5 flex flex-col flex-1">
-        {/* Categoría y estado - Altura fija */}
-        <div className="flex items-center justify-between mb-3 h-5">
+        {/* Categoría y estado */}
+        <div className="flex items-center justify-between mb-3">
           <Badge variant="outline" className="text-xs text-muted-foreground border-border/50">
             {product.category}
           </Badge>
@@ -158,36 +154,30 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
           </span>
         </div>
         
-        {/* Título - Altura fija para 2 líneas */}
-        <div className="h-12 mb-3">
-          <h3 className="font-semibold text-foreground text-base sm:text-lg leading-tight line-clamp-2 group-hover:text-foreground/80 transition-colors duration-200">
-            {product.name}
-          </h3>
-        </div>
+        {/* Título */}
+        <h3 className="font-semibold text-base sm:text-lg leading-tight line-clamp-2 group-hover:text-foreground/80 transition-colors duration-200">
+          {product.name}
+        </h3>
         
-        {/* Descripción - Altura fija para 2 líneas */}
-        <div className="h-10 mb-4">
-          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
-            {product.description}
-          </p>
-        </div>
+        {/* Descripción */}
+        <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed line-clamp-2 my-2">
+          {product.description}
+        </p>
         
-        {/* Espaciador flexible */}
+        {/* Espaciador flexible para empujar el precio y el botón hacia abajo */}
         <div className="flex-1"></div>
         
-        {/* Precio - Altura fija */}
-        <div className="h-8 mb-4">
-          <div className="text-2xl font-semibold text-accent">
-            {formatPrice(product.price)}
-          </div>
+        {/* Precio */}
+        <div className="text-xl sm:text-2xl font-semibold text-accent mt-auto">
+          {formatPrice(product.price)}
         </div>
         
-        {/* Botón - Altura fija al final */}
-        <div className="flex-shrink-0">
+        {/* Botón */}
+        <div className="flex-shrink-0 mt-4">
           <Button 
             onClick={() => onAddToCart(product)} 
             disabled={!product.inStock} 
-            className="w-full h-10 bg-accent text-accent-foreground hover:bg-accent/90 disabled:bg-muted disabled:text-muted-foreground"
+            className="w-full h-9 text-sm sm:h-10 sm:text-base bg-accent text-accent-foreground hover:bg-accent/90 disabled:bg-muted disabled:text-muted-foreground"
           >
             <ShoppingCart className="w-4 h-4 mr-2" />
             {product.inStock ? 'Agregar al carrito' : 'No disponible'}
