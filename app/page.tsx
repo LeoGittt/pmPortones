@@ -144,52 +144,54 @@ function FeaturesSection() {
 function CTASection() {
   return (
     <section className="py-16 bg-accent/5 border-y border-accent/10">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              ¿Listo para automatizar tu portón?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-6">
-              Obtén una cotización personalizada sin compromiso. Nuestros
-              especialistas evaluarán tu proyecto y te brindarán la mejor
-              solución.
-            </p>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>Presupuesto gratuito</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span>Respuesta en 24h</span>
-              </div>
-            </div>
+  <div className="container mx-auto px-4 max-w-6xl">
+    <div className="grid lg:grid-cols-2 gap-8 items-center">
+      {/* Columna de texto e información */}
+      <div className="text-center lg:text-left">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          ¿Listo para automatizar tu portón?
+        </h2>
+        <p className="text-lg text-muted-foreground mb-6">
+          Obtén una cotización personalizada sin compromiso. Nuestros
+          especialistas evaluarán tu proyecto y te brindarán la mejor
+          solución.
+        </p>
+        <div className="flex justify-center lg:justify-start items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span>Presupuesto gratuito</span>
           </div>
-          <div className="lg:text-right">
-            <div className="inline-flex flex-col sm:flex-row gap-4">
-              <a
-                href="https://wa.me/1165145507?text=Hola%2C%20me%20interesa%20solicitar%20una%20cotizaci%C3%B3n%20para%20automatizar%20mi%20port%C3%B3n.%20%C2%BFPodr%C3%ADan%20ayudarme%3F"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors shadow-lg inline-flex items-center justify-center"
-              >
-                Solicitar Cotización
-              </a>
-              <Link
-                href="/catalogo"
-                className="px-8 py-3 border border-border hover:bg-muted/50 rounded-lg font-semibold transition-colors inline-flex items-center justify-center"
-              >
-                Ver Catálogo
-              </Link>
-            </div>
-            <p className="text-sm text-muted-foreground mt-4">
-              🕐 Respuesta garantizada en menos de 24 horas
-            </p>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            <span>Respuesta en 24h</span>
           </div>
         </div>
       </div>
-    </section>
+      {/* Columna de botones */}
+      <div className="text-center lg:text-right">
+        <div className="inline-flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
+          <a
+            href="https://wa.me/1165145507?text=Hola%2C%20me%20interesa%20solicitar%20una%20cotizaci%C3%B3n%20para%20automatizar%20mi%20port%C3%B3n.%20%C2%BFPodr%C3%ADan%20ayudarme%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors shadow-lg inline-flex items-center justify-center"
+          >
+            Solicitar Cotización
+          </a>
+          <Link
+            href="/catalogo"
+            className="px-8 py-3 border border-border hover:bg-muted/50 rounded-lg font-semibold transition-colors inline-flex items-center justify-center"
+          >
+            Ver Catálogo
+          </Link>
+        </div>
+        <p className="text-sm text-muted-foreground mt-4">
+          🕐 Respuesta garantizada en menos de 24 horas
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
   );
 }
 

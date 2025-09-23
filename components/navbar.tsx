@@ -139,7 +139,7 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
                         ? "text-accent bg-accent/10"
                         : isScrolled
                         ? "text-foreground hover:text-accent hover:bg-accent/10"
-                        : "text-white hover:text-accent hover:bg-accent/10"
+                        : "dark:text-white hover:text-accent hover:bg-accent/10"
                     }`}
                     style={{ textShadow: "none", boxShadow: "none" }}
                     onClick={() => setIsMenuOpen(false)}

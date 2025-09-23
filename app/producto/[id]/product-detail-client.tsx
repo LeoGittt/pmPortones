@@ -13,8 +13,6 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
   ShoppingCart,
-  Heart,
-  Share2,
   ArrowLeft,
   Check,
   Truck,
@@ -79,19 +77,14 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
       {/* Breadcrumbs */}
       <div className="pt-24 pb-4 bg-background border-b border-border/40">
         <div className="container mx-auto px-4 max-w-6xl">
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground transition-colors">
-              Inicio
-            </Link>
-            <span>/</span>
-            <Link
-              href="/catalogo"
-              className="hover:text-foreground transition-colors"
-            >
-              Catálogo
-            </Link>
-            <span>/</span>
-            <span className="text-foreground font-medium">{product.name}</span>
+          <nav
+            className="flex items-center gap-2 text-sm text-muted-foreground overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-accent/40 scrollbar-track-transparent md:overflow-visible md:whitespace-normal"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+            aria-label="Breadcrumb"
+          >
+           
+            
+            <span className="text-foreground font-medium flex-shrink-0">{product.name}</span>
           </nav>
 
           {/* Botón volver */}
@@ -238,18 +231,6 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                     {product.inStock ? "Agregar al carrito" : "No disponible"}
                   </Button>
                 </div>
-
-                {/* Botones secundarios */}
-                <div className="flex gap-2 mt-4">
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <Heart className="w-4 h-4 mr-2" />
-                    Favoritos
-                  </Button>
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <Share2 className="w-4 h-4 mr-2" />
-                    Compartir
-                  </Button>
-                </div>
               </div>
 
               {/* Beneficios */}
@@ -368,13 +349,14 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
               Productos Destacados
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Descubre nuestros productos más populares y encuentra la solución perfecta para tu hogar
+              Descubre nuestros productos más populares y encuentra la solución
+              perfecta para tu hogar
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {mockProducts
-              .filter(p => p.featured && p.id !== product.id)
+              .filter((p) => p.featured && p.id !== product.id)
               .slice(0, 3)
               .map((featuredProduct) => (
                 <ProductCard
@@ -384,7 +366,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                 />
               ))}
           </div>
-          
+
           <div className="text-center mt-12">
             <Link href="/catalogo">
               <Button variant="outline" size="lg">
