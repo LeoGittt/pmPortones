@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -22,6 +22,7 @@ interface CatalogFiltersProps {
 
 export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: CatalogFiltersProps) {
   const [isExpanded, setIsExpanded] = useState(true)
+  const searchInputId = "catalog-search-input";
 
   const updateFilter = (key: keyof FilterState, value: string) => {
     onFiltersChange({ ...filters, [key]: value })
@@ -68,32 +69,6 @@ export function CatalogFilters({ filters, onFiltersChange, onClearFilters }: Cat
       {/* Filter Content - Espaciado uniforme */}
       <div className={`p-4 space-y-5 ${isExpanded ? "block" : "hidden lg:block"}`}>
         
-        {/* Search Section */}
-        <div className="space-y-3">
-          <label className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            <Search className="w-3 h-3 text-accent" />
-            Búsqueda
-          </label>
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <Input
-              placeholder="Buscar productos..."
-              value={filters.search}
-              onChange={(e) => updateFilter("search", e.target.value)}
-              className="pl-10 h-10 text-sm bg-background/50 border-border/50 focus:border-accent/60 focus:bg-background transition-all"
-            />
-            {filters.search && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => updateFilter("search", "")}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-muted/80"
-              >
-                <X className="w-3 h-3" />
-              </Button>
-            )}
-          </div>
-        </div>
 
         {/* Category Section */}
         <div className="space-y-3">

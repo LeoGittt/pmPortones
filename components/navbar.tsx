@@ -56,9 +56,9 @@ export function Navbar({ cartItemCount = 0, onCartClick }: NavbarProps) {
               <Image
                 src="/images/logo-portones-pm.png"
                 alt="PORTONES PM"
-                width={350} // tamaño moderado
-                height={175} // mantiene proporción
-                className="h-40 mt-1.5 w-auto transition-transform duration-300 group-hover:scale-105"
+                width={400} // un poco más ancho
+                height={200} // mantiene proporción
+                className="h-44 mt-1.5 w-auto transition-transform duration-300 group-hover:scale-105"
                 priority
               />
             </div>

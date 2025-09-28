@@ -94,16 +94,24 @@ export function Catalog({ onAddToCart }: CatalogProps) {
           <div className="lg:col-span-3">
             {/* Barra de controles */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 p-3 bg-card border border-border rounded-lg">
-              <div className="flex items-center gap-3">
-                <Search className="w-5 h-5 text-accent" />
-                <div>
-                  <p className="text-base sm:text-lg font-semibold text-foreground">
-                    {paginatedProducts.length} productos
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    de {filteredAndSortedProducts.length} disponibles
-                  </p>
-                </div>
+              <div className="flex items-center gap-3 w-full max-w-md">
+                <Search className="w-5 h-5 text-accent mr-2 min-w-[24px]" />
+                <input
+                  type="text"
+                  value={filters.search}
+                  onChange={e => setFilters(f => ({ ...f, search: e.target.value }))}
+                  placeholder="Buscar productos..."
+                  className="w-full min-w-0 h-9 px-3 py-1 rounded-md border border-border bg-background text-base focus:border-accent outline-none transition-all sm:text-base text-sm"
+                  style={{ maxWidth: '100%' }}
+                />
+              </div>
+              <div>
+                <p className="text-base sm:text-lg font-semibold text-foreground">
+                  {paginatedProducts.length} productos
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  de {filteredAndSortedProducts.length} disponibles
+                </p>
               </div>
 
               <div className="flex items-center gap-1 sm:gap-2 p-1 bg-muted/50 rounded-lg border border-border">

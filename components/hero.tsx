@@ -17,7 +17,7 @@ export function HeroSection() {
     {
       title: "Seguridad Total",
       subtitle: "Protege tu hogar con la mejor tecnología",
-      cta: "Conoce Nuestros Sistemas"
+      cta: "Ver Productos"
     },
     {
       title: "Instalación Profesional",
@@ -83,7 +83,13 @@ export function HeroSection() {
                         {message.subtitle}
                       </p>
                       <div className="flex justify-center pt-4">
-                        <Link href="/contacto">
+                        <Link href={
+                          message.cta === "Ver Productos" ? "/catalogo" :
+                          message.cta === "Solicita tu Cotización" ? "/contacto" :
+                          message.cta === "Programa tu Servicio" ? "/contacto" :
+                          message.cta === "Ver Innovaciones" ? "/catalogo" :
+                          "/"
+                        }>
                           <Button
                             size="lg"
                             className="bg-accent hover:bg-accent/90 text-white transition-colors"
