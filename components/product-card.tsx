@@ -31,19 +31,12 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
           {/* Overlay sutil en hover */}
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
           
-          {/* Badges */}
-          <div className="absolute top-2 left-2 flex flex-col gap-1">
-            {product.featured && (
-              <Badge variant="default" className="text-xs bg-primary/90 hover:bg-primary">
-                Destacado
-              </Badge>
-            )}
-          </div>
+          {/* Badges eliminados */}
 
           {/* Quick actions */}
           <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Link href={`/producto/${product.id}`}>
-              <Button size="sm" className="h-8 w-8 p-0 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg">
+              <Button size="sm" className="h-8 w-8 p-0 bg-orange-500 text-white hover:bg-orange-600 shadow-lg">
                 <Eye className="h-3 w-3" />
               </Button>
             </Link>
@@ -51,7 +44,7 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
               size="sm" 
               onClick={() => onAddToCart(product)}
               disabled={!product.inStock}
-              className="h-8 w-8 p-0 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg disabled:bg-muted disabled:text-muted-foreground"
+              className="h-8 w-8 p-0 bg-orange-500 text-white hover:bg-orange-600 shadow-lg disabled:bg-muted disabled:text-muted-foreground"
             >
               <ShoppingCart className="h-3 w-3" />
             </Button>
@@ -79,7 +72,7 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
             <Button 
               onClick={() => onAddToCart(product)}
               size="sm"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md"
+              className="bg-orange-500 hover:bg-orange-600 text-white shadow-md"
             >
               <ShoppingCart className="h-4 w-4 mr-1" />
               Agregar
@@ -106,13 +99,8 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
         {/* Overlay sutil en hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
         
-        {/* Badges minimalistas */}
+        {/* Badge solo para Sin Stock */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-          {product.featured && (
-            <Badge className="bg-accent text-accent-foreground text-xs font-medium px-2 py-1">
-              Destacado
-            </Badge>
-          )}
           {!product.inStock && (
             <Badge variant="secondary" className="text-xs font-medium px-2 py-1 bg-muted text-muted-foreground">
               Sin Stock
@@ -125,7 +113,7 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
           <Button
             size="sm"
             asChild
-            className="h-10 w-10 p-0 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg border border-accent/20"
+            className="h-10 w-10 p-0 bg-orange-500 text-white hover:bg-orange-600 shadow-lg border border-orange-500"
           >
             <Link href={`/producto/${product.id}`}>
               <Eye className="h-4 w-4" />
@@ -135,7 +123,7 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
             size="sm"
             onClick={() => onAddToCart(product)}
             disabled={!product.inStock}
-            className="h-10 w-10 p-0 bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg border border-accent/20 disabled:bg-muted disabled:text-muted-foreground disabled:border-muted"
+            className="h-10 w-10 p-0 bg-orange-500 text-white hover:bg-orange-600 shadow-lg border border-orange-500 disabled:bg-muted disabled:text-muted-foreground disabled:border-muted"
           >
             <ShoppingCart className="h-4 w-4" />
           </Button>
@@ -177,7 +165,7 @@ export function ProductCard({ product, onAddToCart, viewMode = 'grid' }: Product
           <Button 
             onClick={() => onAddToCart(product)} 
             disabled={!product.inStock} 
-            className="w-full h-9 text-sm sm:h-10 sm:text-base bg-accent text-accent-foreground hover:bg-accent/90 disabled:bg-muted disabled:text-muted-foreground"
+            className="w-full h-9 text-sm sm:h-10 sm:text-base bg-orange-500 text-white hover:bg-orange-600 disabled:bg-muted disabled:text-muted-foreground"
           >
             <ShoppingCart className="w-4 h-4 mr-2" />
             {product.inStock ? 'Agregar al carrito' : 'No disponible'}

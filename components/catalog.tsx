@@ -148,7 +148,7 @@ export function Catalog({ onAddToCart }: CatalogProps) {
                 {paginatedProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="transform transition-all duration-200 hover:scale-[1.02] max-w-sm mx-auto h-full w-full"
+                    className={`transform transition-all duration-200 hover:scale-[1.02] h-full w-full ${viewMode === 'list' ? 'max-w-none mx-0' : 'max-w-sm mx-auto'}`}
                   >
                     <ProductCard
                       product={product}
@@ -180,11 +180,10 @@ export function Catalog({ onAddToCart }: CatalogProps) {
             {totalPages > 1 && (
               <div className="flex flex-wrap justify-center items-center gap-2 mt-8">
                 <Button
-                  variant="outline"
                   size="sm"
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="h-9 px-3"
+                  className="h-9 px-3 bg-orange-500 text-white hover:bg-orange-600 disabled:bg-muted disabled:text-muted-foreground"
                 >
                   <ChevronLeft className="w-4 h-4 mr-1" /> Anterior
                 </Button>
@@ -192,21 +191,19 @@ export function Catalog({ onAddToCart }: CatalogProps) {
                 {Array.from({ length: totalPages }, (_, i) => (
                   <Button
                     key={i + 1}
-                    variant={currentPage === i + 1 ? "default" : "outline"}
                     size="sm"
                     onClick={() => setCurrentPage(i + 1)}
-                    className="h-9 w-9 p-0"
+                    className={`h-9 w-9 p-0 ${currentPage === i + 1 ? 'bg-orange-500 text-white hover:bg-orange-600' : 'bg-white text-orange-500 border border-orange-500 hover:bg-orange-100'}`}
                   >
                     {i + 1}
                   </Button>
                 ))}
 
                 <Button
-                  variant="outline"
                   size="sm"
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="h-9 px-3"
+                  className="h-9 px-3 bg-orange-500 text-white hover:bg-orange-600 disabled:bg-muted disabled:text-muted-foreground"
                 >
                   Siguiente <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
