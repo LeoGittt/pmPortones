@@ -22,40 +22,65 @@ export function Catalog({ onAddToCart }: CatalogProps) {
     sortBy: "name-asc",
   });
 
-  const filteredAndSortedProducts = useMemo(() => {
+ const filteredAndSortedProducts = useMemo(() => {
     let filtered = mockProducts;
 
+    // 1. FILTRADO POR BÚSQUEDA
     if (filters.search) {
-      const searchTerm = filters.search.toLowerCase();
-      filtered = filtered.filter(
-        (product) =>
-          product.name.toLowerCase().includes(searchTerm) ||
-          product.description.toLowerCase().includes(searchTerm) ||
-          product.category.toLowerCase().includes(searchTerm)
-      );
+        const searchTerm = filters.search.toLowerCase();
+        filtered = filtered.filter(
+            (product) =>
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm)
+        );
     }
 
+    // 2. FILTRADO POR CATEGORÍA
+    // Si filters.category está vacío ("Todas las Categorías"), se mantienen todos los productos.
     if (filters.category) {
-      filtered = filtered.filter((product) => product.category === filters.category);
+        filtered = filtered.filter((product) => product.category === filters.category);
     }
 
+    // 3. ORDENACIÓN: Prioridad a 'Featured' (Destacados) y luego por 'sortBy'
     filtered.sort((a, b) => {
-      switch (filters.sortBy) {
-        case "name-desc":
-          return b.name.localeCompare(a.name);
-        case "price-asc":
-          return (typeof a.price === "number" ? a.price : 0) - (typeof b.price === "number" ? b.price : 0);
-        case "price-desc":
-          return (typeof b.price === "number" ? b.price : 0) - (typeof a.price === "number" ? a.price : 0);
-        case "category":
-          return a.category.localeCompare(b.category);
-        default:
-          return a.name.localeCompare(b.name);
-      }
+        // --- Prioridad a Destacados ---
+        const aIsFeatured = a.featured === true;
+        const bIsFeatured = b.featured === true;
+
+        if (aIsFeatured && !bIsFeatured) {
+            return -1; // 'a' (destacado) va primero
+        }
+        if (!aIsFeatured && bIsFeatured) {
+            return 1;  // 'b' (destacado) va primero
+        }
+        
+        // Si ambos son destacados o ninguno lo es, se aplica el orden secundario (sortBy).
+        
+        // --- Ordenación Secundaria (Por filtro seleccionado) ---
+        switch (filters.sortBy) {
+            case "name-desc":
+                return b.name.localeCompare(a.name);
+            case "price-asc":
+                // Maneja "N/A" y null como 0 para la comparación
+                const priceA = typeof a.price === "number" ? a.price : 0;
+                const priceB = typeof b.price === "number" ? b.price : 0;
+                return priceA - priceB;
+            case "price-desc":
+                // Maneja "N/A" y null como 0 para la comparación
+                const priceADesc = typeof a.price === "number" ? a.price : 0;
+                const priceBDesc = typeof b.price === "number" ? b.price : 0;
+                return priceBDesc - priceADesc;
+            case "category":
+                return a.category.localeCompare(b.category);
+            default:
+                // Por defecto: ordenar el resto alfabéticamente por nombre (A-Z)
+                return a.name.localeCompare(b.name);
+        }
     });
 
     return filtered;
-  }, [filters]);
+}, [filters]);
 
   const totalPages = Math.ceil(filteredAndSortedProducts.length / PRODUCTS_PER_PAGE);
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;

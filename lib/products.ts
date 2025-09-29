@@ -222,7 +222,7 @@ export const mockProducts: Product[] = [
     specifications: "N/A",
     variations: undefined,
     inStock: "N/A",
-    featured: "N/A",
+    featured: true,
     brand: "Stark Home",
   },
   {
@@ -416,7 +416,7 @@ export const mockProducts: Product[] = [
     },
     variations: undefined,
     inStock: "N/A",
-    featured: "N/A",
+    featured: true,
     brand: "Stark",
   },
   {
@@ -501,7 +501,7 @@ export const mockProducts: Product[] = [
     },
     variations: undefined,
     inStock: "N/A",
-    featured: "N/A",
+    featured: true,
     brand: "N/A"
   },
   // Productos en la categoría Motores Pivotantes
@@ -515,7 +515,7 @@ export const mockProducts: Product[] = [
     specifications: "N/A",
     variations: undefined,
     inStock: "N/A",
-    featured: "N/A",
+    featured: true,
     brand: "N/A"
   },
   {
@@ -740,7 +740,7 @@ export const mockProducts: Product[] = [
     },
     variations: undefined,
     inStock: "N/A",
-    featured: "N/A",
+    featured: false,
     brand: "N/A"
   },
   {
@@ -755,7 +755,7 @@ export const mockProducts: Product[] = [
     },
     variations: undefined,
     inStock: "N/A",
-    featured: "N/A",
+    featured: false,
     brand: "N/A"
   },
   {
