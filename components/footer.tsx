@@ -44,9 +44,9 @@ export function Footer() {
               <Image
                 src="/images/logo-portones-pm.png"
                 alt="PORTONES PM"
-                width={150}
-                height={50}
-                className="h-12 w-auto"
+                width={600}
+                height={300}
+                className="h-28 w-auto max-w-[340px] md:max-w-[420px] lg:max-w-[520px]"
               />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">

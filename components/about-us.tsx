@@ -134,7 +134,7 @@ export function AboutUs() {
                 Ver Nuestros Productos
               </a>
               <a
-                href="#contacto"
+                href="/contacto"
                 className="inline-flex items-center justify-center px-6 py-3 border border-accent/30 text-accent rounded-lg font-semibold hover:bg-accent/5 transition-colors"
               >
                 <Phone className="w-4 h-4 mr-2" />

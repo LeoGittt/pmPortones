@@ -804,9 +804,9 @@ export const mockProducts: Product[] = [
   },
    {
   id: "4",
-  name: "SEMÁFORO A LEDS GARAGE CON TIMER Y SONIDO",
+  name: "Semáforo Led para Garage con Sonido",
   price: "N/A",
-  category: "Accesorios de Seguridad y Control de Acceso",
+  category: "Accesorios",
   description: "Semáforo avanzado con **tecnología LED** y **sonido de alerta**, diseñado para un control de tráfico eficiente y seguro en diversos entornos. Incluye **timer** y **fotocélula** para una instalación y funcionamiento automáticos. Su bajo consumo y diseño compacto lo hacen ideal para una amplia gama de aplicaciones.",
   images: [
     "/images/semaforo.jpg"
@@ -823,7 +823,7 @@ export const mockProducts: Product[] = [
   variations: undefined,
   inStock: true,
   featured: true,
-  brand: "PPA",
+  brand: "N/A",
 },
   {
     id: "38",
