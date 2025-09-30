@@ -4,9 +4,9 @@ import { Facebook, Instagram, Phone, Mail, MapPin } from "lucide-react"
 
 export function Footer() {
   const quickLinks = [
-    { href: "#catalogo", label: "Catálogo" },
-    { href: "#nosotros", label: "Sobre Nosotros" },
-    { href: "#contacto", label: "Contacto" },
+    { href: "/catalogo", label: "Catálogo" },
+    { href: "/nosotros", label: "Sobre Nosotros" },
+    { href: "/contacto", label: "Contacto" },
     { href: "tel:1165145507", label: "Llamar Ahora" },
   ]
 

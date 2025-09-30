@@ -324,7 +324,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 text-center">
               <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
                 ¿Necesitas ayuda?
               </h3>
@@ -334,10 +334,19 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                   cualquier consulta sobre este producto o su instalación.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Button className="flex-1 bg-orange-400">Consultar por WhatsApp</Button>
-                  <Button variant="outline" className="flex-1">
-                    Solicitar Instalación
+                  <Button
+                    asChild
+                    className="flex-1 bg-orange-400 hover:bg-orange-500 text-white h-12"
+                  >
+                    <a
+                      href="https://wa.me/541165145507?text=Hola!%20Quiero%20consultar%20por%20un%20producto%20que%20vi%20en%20la%20web."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Consultar por WhatsApp
+                    </a>
                   </Button>
+                  
                 </div>
               </div>
             </div>
