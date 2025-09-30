@@ -802,23 +802,29 @@ export const mockProducts: Product[] = [
     featured: "N/A",
     brand: "N/A",
   },
-  {
-    id: "4",
-    name: "Semáforo",
-    price: "N/A",
-    category: "Accesorios",
-    description: "Baliza de señalización con tecnología LED de bajo consumo. Compatible con todas las marcas.",
-    images: ["https://http2.mlstatic.com/D_NQ_NP_813872-MLA28609061318_112018-O.webp"],
-    specifications: {
-      "Voltaje": "12/24V",
-      "Tipo de luz": "LED",
-      "Impermeabilidad": "IP54",
-    },
-    variations: undefined,
-    inStock: true,
-    featured: true,
-    brand: "PPA",
-  },
+   {
+  id: "4",
+  name: "SEMÁFORO A LEDS GARAGE CON TIMER Y SONIDO",
+  price: "N/A",
+  category: "Accesorios de Seguridad y Control de Acceso",
+  description: "Semáforo avanzado con **tecnología LED** y **sonido de alerta**, diseñado para un control de tráfico eficiente y seguro en diversos entornos. Incluye **timer** y **fotocélula** para una instalación y funcionamiento automáticos. Su bajo consumo y diseño compacto lo hacen ideal para una amplia gama de aplicaciones.",
+  images: [
+    "/images/semaforo.jpg"
+  ],
+  specifications: {
+    Voltaje: "220V (Alimentación del sistema), Fuente 12V (Máximo 25 metros)",
+    TipoDeLuz: "LED (120° de apertura lumínica)",
+    Consumo: "Menor a 1W",
+    Impermeabilidad: "Pintura poliuretánica resistente al agua (No se especifica IP, se usa la descripción)",
+    Medidas: "14cm alto x 11cm ancho x 12cm de profundidad",
+    Instalacion: "Diseño adaptado para montaje en caja miñon estándar",
+    Conexion: "Fácil conexión mediante 4 cables / 3C"
+  },
+  variations: undefined,
+  inStock: true,
+  featured: true,
+  brand: "PPA",
+},
   {
     id: "38",
     name: "Cremallera PVC POP",
