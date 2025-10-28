@@ -51,26 +51,32 @@ export function ContactForm() {
   const contactInfo = [
     {
       icon: Phone,
-      label: "Teléfono",
-      value: "(11) 6514-5507",
-      href: "tel:1165145507",
+      label: "Teléfono Fijo",
+      value: "(0348) 443-2218",
+      href: "tel:03484432218",
+    },
+    {
+      icon: Phone,
+      label: "Celular",
+      value: "(011) 6514-5507",
+      href: "tel:01165145507",
     },
     {
       icon: Mail,
       label: "Email",
-      value: "caznidarsic@yahoo.com.ar",
-      href: "mailto:caznidarsic@yahoo.com.ar",
+      value: "info@portonespm.com",
+      href: "mailto:info@portonespm.com",
     },
     {
       icon: MapPin,
       label: "Ubicación",
-      value: "Buenos Aires, Argentina",
+      value: "Av. 25 de Mayo 416",
       href: "#",
     },
     {
       icon: Clock,
       label: "Horarios de Atención",
-      value: "Lun - Vie: 8:00 - 18:00\nSáb: 8:00 - 13:00",
+      value: "Lun - Vie: 8:30 - 12:30 y 14:00 - 17:30",
       href: "#",
     },
   ];
@@ -100,7 +106,7 @@ export function ContactForm() {
 
     try {
       const response = await fetch(
-        "https://formsubmit.co/caznidarsic@yahoo.com.ar",
+        "https://formsubmit.co/info@portonespm.com",
         {
           method: "POST",
           headers: {
@@ -111,6 +117,8 @@ export function ContactForm() {
             _subject: `Nuevo contacto desde PORTONES PM - ${formData.subject}`,
             _template: "table",
             _captcha: "false",
+            _next: "https://portonespm.com/gracias", // Página de agradecimiento opcional
+            _cc: "info@portonespm.com" // Copia del email
           }),
         }
       );
@@ -351,10 +359,10 @@ export function ContactForm() {
                       Soporte Técnico
                     </h4>
                     <p className="text-xs text-muted-foreground">
-                      Lun - Vie 9:00-18:00
+                      Lun - Vie 8:30-12:30 y 14:00-17:30
                     </p>
                     <a
-                      href="tel:1165145507"
+                      href="tel:01165145507"
                       className="text-accent text-sm font-medium hover:underline"
                     >
                       Llamar Ahora

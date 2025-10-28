@@ -339,7 +339,7 @@ export function ProductDetailClient({ productId }: ProductDetailClientProps) {
                     className="flex-1 bg-orange-400 hover:bg-orange-500 text-white h-12"
                   >
                     <a
-                      href="https://wa.me/541165145507?text=Hola!%20Quiero%20consultar%20por%20un%20producto%20que%20vi%20en%20la%20web."
+                      href="https://wa.me/5491165145507?text=Hola!%20Quiero%20consultar%20por%20un%20producto%20que%20vi%20en%20la%20web."
                       target="_blank"
                       rel="noopener noreferrer"
                     >

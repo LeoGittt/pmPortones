@@ -1,13 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Facebook, Instagram, Phone, Mail, MapPin } from "lucide-react"
+import { Facebook, Instagram, Phone, Mail, MapPin, Clock } from "lucide-react"
 
 export function Footer() {
   const quickLinks = [
     { href: "/catalogo", label: "Catálogo" },
     { href: "/nosotros", label: "Sobre Nosotros" },
     { href: "/contacto", label: "Contacto" },
-    { href: "tel:1165145507", label: "Llamar Ahora" },
+    { href: "tel:01165145507", label: "Llamar Ahora" },
   ]
 
   const services = [
@@ -98,24 +98,43 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Contacto</h3>
             <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                <a href="tel:1165145507" className="text-muted-foreground text-sm hover:text-primary transition-colors">
-                  (11) 6514-5507
-                </a>
+              <div className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <div className="text-muted-foreground text-sm">
+                  <div>Av. 25 de Mayo 416</div>
+                  <div>(Entre Hipólito Irigoyen y Av. Belgrano)</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <Phone className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <div className="text-muted-foreground text-sm">
+                  <div>
+                    <a href="tel:03484432218" className="hover:text-primary transition-colors">
+                      Fijo: (0348) 443-2218
+                    </a>
+                  </div>
+                  <div>
+                    <a href="tel:01165145507" className="hover:text-primary transition-colors">
+                      Cel: (011) 6514-5507
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <Clock className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <div className="text-muted-foreground text-sm">
+                  <div>Lunes a Viernes</div>
+                  <div>8:30 a 12:30 y 14:00 a 17:30</div>
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-primary flex-shrink-0" />
                 <a
-                  href="mailto:caznidarsic@yahoo.com.ar"
+                  href="mailto:info@portonespm.com"
                   className="text-muted-foreground text-sm hover:text-primary transition-colors"
                 >
-                  caznidarsic@yahoo.com.ar
+                  info@portonespm.com
                 </a>
-              </div>
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-muted-foreground text-sm">Buenos Aires, Argentina</span>
               </div>
             </div>
           </div>

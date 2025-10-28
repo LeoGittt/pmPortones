@@ -171,7 +171,7 @@ function CTASection() {
       <div className="text-center lg:text-right">
         <div className="inline-flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
           <a
-            href="https://wa.me/1165145507?text=Hola%2C%20me%20interesa%20solicitar%20una%20cotizaci%C3%B3n%20para%20automatizar%20mi%20port%C3%B3n.%20%C2%BFPodr%C3%ADan%20ayudarme%3F"
+            href="https://wa.me/5491165145507?text=Hola%2C%20me%20interesa%20solicitar%20una%20cotizaci%C3%B3n%20para%20automatizar%20mi%20port%C3%B3n.%20%C2%BFPodr%C3%ADan%20ayudarme%3F"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors shadow-lg inline-flex items-center justify-center"

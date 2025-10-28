@@ -61,7 +61,7 @@ export function FAQSection() {
     {
       question: "¿Qué horarios de atención tienen?",
       answer:
-        "Nuestro horario de atención es de Lunes a Viernes de 9:00 a 18:00 hs. También atendemos consultas por WhatsApp para coordinar visitas y presupuestos.",
+        "Nuestro horario de atención es de Lunes a Viernes de 8:30 a 12:30 y de 14:00 a 17:30 hs. También atendemos consultas por WhatsApp para coordinar visitas y presupuestos.",
     },
     {
       question: "¿Qué marcas de motores manejan?",

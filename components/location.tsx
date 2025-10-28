@@ -6,26 +6,32 @@ export function Location() {
   const contactInfo = [
     {
       icon: Phone,
-      label: "Teléfono",
-      value: "(11) 6514-5507",
-      href: "tel:1165145507",
+      label: "Teléfono Fijo",
+      value: "(0348) 443-2218",
+      href: "tel:03484432218",
+    },
+    {
+      icon: Phone,
+      label: "Celular",
+      value: "(011) 6514-5507",
+      href: "tel:01165145507",
     },
     {
       icon: Mail,
       label: "Email",
-      value: "caznidarsic@yahoo.com.ar",
-      href: "mailto:caznidarsic@yahoo.com.ar",
+      value: "info@portonespm.com",
+      href: "mailto:info@portonespm.com",
     },
     {
       icon: MapPin,
       label: "Dirección",
-      value: "Buenos Aires, Argentina",
+      value: "Av. 25 de Mayo 416\n(Entre Hipólito Irigoyen y Av. Belgrano)",
       href: "#",
     },
     {
       icon: Clock,
       label: "Horarios",
-      value: "Lun - Vie: 8:00 - 18:00\nSáb: 8:00 - 13:00",
+      value: "Lun - Vie: 8:30 - 12:30 y 14:00 - 17:30",
       href: "#",
     },
   ];
