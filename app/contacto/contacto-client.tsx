@@ -69,7 +69,7 @@ export function ContactoClient() {
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Dirección</h3>
                     <p className="text-muted-foreground">
-                      Av Diagonal Norte 1079, Ruta 25 - Moreno (La Reja)
+                      Av. 25 de Mayo 416 (Entre Hipólito Irigoyen y Av. Belgrano)
                     </p>
                   </div>
                 </div>
